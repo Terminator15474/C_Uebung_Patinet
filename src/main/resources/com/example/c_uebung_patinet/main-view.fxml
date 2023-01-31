@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="445.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.c_uebung_patinet.MainView">
+   <children>
+      <Label layoutX="43.0" layoutY="14.0" text="Patienten">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <ListView fx:id="lv_patienten" layoutX="50.0" layoutY="44.0" prefHeight="338.0" prefWidth="290.0" />
+      <Button layoutX="354.0" layoutY="290.0" mnemonicParsing="false" onAction="#changePatient" text="Ändern" />
+      <Button layoutX="352.0" layoutY="322.0" mnemonicParsing="false" onAction="#deletePatient" text="Löschen" />
+      <Button layoutX="352.0" layoutY="356.0" mnemonicParsing="false" onAction="#addPatient" text="Hinzufügen" />
+   </children>
+</AnchorPane>
