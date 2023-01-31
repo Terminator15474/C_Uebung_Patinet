@@ -1,16 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.c_uebung_patinet.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="533.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="23.0" layoutY="14.0" text="Patientenstammdaten">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="89.0" layoutY="44.0" text="Name" />
+      <Label layoutX="73.0" layoutY="71.0" text="Vorname" />
+      <Label layoutX="53.0" layoutY="98.0" text="Geburtsname" />
+      <Label layoutX="101.0" layoutY="124.0" text="Titel" />
+      <Label layoutX="50.0" layoutY="151.0" text="Namenszusatz" />
+      <Label layoutX="51.0" layoutY="178.0" text="Geburtsdatum" />
+      <Label layoutX="66.0" layoutY="209.0" text="Geburtsort" />
+      <Label layoutX="66.0" layoutY="236.0" text="Geschlecht" />
+      <Label layoutX="47.0" layoutY="262.0" text="Familientstand" />
+      <Label layoutX="20.0" layoutY="294.0" text="Staatsangehörigkeit" />
+      <Label layoutX="76.0" layoutY="319.0" text="PLZ / Ort" />
+      <Label layoutX="78.0" layoutY="346.0" text="Str. / Nr." />
+      <Label layoutX="44.0" layoutY="372.0" text="Vorw. / Telefon" />
+      <Label layoutX="68.0" layoutY="398.0" text="Konfession" />
+      <TextField layoutX="127.0" layoutY="40.0" />
+      <TextField layoutX="127.0" layoutY="67.0" />
+      <TextField layoutX="128.0" layoutY="94.0" />
+      <TextField layoutX="128.0" layoutY="120.0" />
+      <TextField layoutX="129.0" layoutY="151.0" />
+      <DatePicker layoutX="130.0" layoutY="177.0" prefHeight="26.0" prefWidth="150.0" />
+      <ComboBox layoutX="129.0" layoutY="232.0" prefWidth="150.0" />
+      <TextField layoutX="128.0" layoutY="259.0" />
+      <TextField layoutX="128.0" layoutY="290.0" />
+      <TextField layoutX="128.0" layoutY="316.0" />
+      <TextField layoutX="281.0" layoutY="290.0" />
+      <TextField layoutX="281.0" layoutY="316.0" />
+      <TextField layoutX="128.0" layoutY="342.0" />
+      <TextField layoutX="282.0" layoutY="342.0" />
+      <TextField layoutX="128.0" layoutY="368.0" />
+      <TextField layoutX="281.0" layoutY="368.0" />
+      <TextField layoutX="129.0" layoutY="394.0" />
+      <ComboBox layoutX="130.0" layoutY="205.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>
