@@ -3,18 +3,19 @@ package com.example.c_uebung_patinet.SQL_Model;
 import java.util.Date;
 
 public class Patient {
-    private String svnr, vorname, nachname, geburtsname, title, namenszuatz;
+    private int svnr;
+    private String vorname, nachname, geburtsname, title, namenszuatz;
     private Date geburtsdatum;
     private String geburtsort, geschlecht, familienstand;
     private Land staatsangehörigkeit;
     private String postleitzahl, ort, strasse, hausnr, tel;
     private Religion religionszugehörigkeit;
 
-    public String getSvnr() {
+    public int getSvnr() {
         return svnr;
     }
 
-    public void setSvnr(String svnr) {
+    public void setSvnr(int svnr) {
         this.svnr = svnr;
     }
 
