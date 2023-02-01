@@ -42,7 +42,10 @@ public class MainViewController implements Initializable {
 
     @FXML
     void deletePatient(ActionEvent event) {
-
+        int index = lv_patienten.getSelectionModel().getSelectedIndex();
+        Patient temp = lv_patienten.getItems().get(index);
+        lv_patienten.getItems().remove(temp);
+        connectionHandler.deletePatient(temp);
     }
 
     @Override

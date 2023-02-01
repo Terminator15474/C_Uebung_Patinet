@@ -120,4 +120,38 @@ public class ConnectionHandler {
         }
       return religions;
     }
+
+    public List<Land> selectAllCountries() throws SQLException {
+        List<Land> countries = new LinkedList<>();
+        Statement s = c.createStatement();
+        ResultSet rs = s.executeQuery("SELECT * FROM DATABASE.LAND");
+        while(rs.next()) {
+            Land l = new Land();
+            l.setKuerzel(rs.getString(1));
+            l.setName(rs.getString(2));
+            l.setVorwahl(rs.getString(3));
+            countries.add(l);
+        }
+        return countries;
+    }
+
+    public Land selectCountryByKuerzel(String kuerzel) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("SELECT * FROM DATABASE.LAND WHERE KUERZEL = ?");
+        ps.setString(1, kuerzel);
+        ResultSet rs = ps.executeQuery();
+        if(rs.next()) {
+            Land l = new Land();
+            l.setKuerzel(rs.getString(1));
+            l.setName(rs.getString(2));
+            l.setVorwahl(rs.getString(3));
+            return l;
+        }
+        return null;
+    }
+
+    public int deletePatient(Patient p) {
+        return -1;
+    }
+
+
 }
