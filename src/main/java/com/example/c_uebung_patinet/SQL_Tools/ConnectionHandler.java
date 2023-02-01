@@ -12,18 +12,26 @@ import java.util.List;
 public class ConnectionHandler {
     Connection c = null;
 
+    /**
+     * Initialised the Connection to the Database
+     * @throws SQLException when the Connection to the local Database fails for some reason
+     */
     public ConnectionHandler() throws SQLException {
         c = DriverManager.getConnection("jdbc:derby://localhost:1527/Database", "Database", "Database");
     }
 
+    /**
+     * Closes the Database connection (REQUIRED!)
+     * @throws SQLException when the close fails for any reason
+     */
     public void closeDatabaseConnection() throws SQLException {
         c.close();
     }
 
     /**
+     * This method adds a Patient to the Database if it doesn't already exist in the database, when it already exists the entry is updated
      *
-     * TODO: Add a check if the patient already exists, then modify them in the database
-     * @param p Patient to be added to Database
+     * @param p Patient to be added to / updated on Database
      * @return the number of lines effected in the Database
      * @throws Exception when an SQLException occurs or the connection with the database is not initialised
      */
@@ -66,7 +74,12 @@ public class ConnectionHandler {
         return ps.executeUpdate();
     }
 
-    public LinkedList<Patient> selectPatients() throws Exception {
+    /**
+     * Returns a List of all
+     * @return
+     * @throws Exception
+     */
+    public List<Patient> selectPatients() throws Exception {
         LinkedList<Patient> patients = new LinkedList<>();
         ResultSet rs = c.createStatement().executeQuery("SELECT DISTINCT * FROM DATABASE.GET_ALL_PATIENTS");
         while(rs.next()) {
