@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.List;
@@ -44,9 +45,11 @@ public class MainViewController implements Initializable {
             label_error.setText("An critical error occured! Please seek help and pray!");
             return;
         }
-        FXMLLoader fxmlLoader = new FXMLLoader(MainViewController.class.getResource("/com/example/c_uebung_patinet/Stammdaten.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainViewController.class.getResource("Stammdaten.fxml"));
         Parent root = fxmlLoader.load();
-        HelloApplication.global_stage.getScene().setRoot(root);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML

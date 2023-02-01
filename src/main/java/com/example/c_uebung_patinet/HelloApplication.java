@@ -23,9 +23,4 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
         launch();
     }
-
-    public void setRoot(String fxml) throws Exception {
-        Parent pane = FXMLLoader.load(getClass().getResource(fxml));
-        global_stage.getScene().setRoot(pane);
-    }
 }
