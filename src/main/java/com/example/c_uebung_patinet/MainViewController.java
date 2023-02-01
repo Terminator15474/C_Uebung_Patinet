@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 
 public class MainViewController implements Initializable {
     ConnectionHandler connectionHandler = null;
-    static Patient selected_Patient = null;
+    public static Patient selected_Patient = null;
     @FXML
     private ListView<Patient> lv_patienten;
     @FXML
@@ -36,13 +36,16 @@ public class MainViewController implements Initializable {
     }
 
     @FXML
-    void changePatient(ActionEvent event) {
-
+    void changePatient(ActionEvent event) throws Exception {
+        HelloApplication.setScene("Stammdaten.fxml");
     }
 
     @FXML
     void deletePatient(ActionEvent event) {
-
+        int index = lv_patienten.getSelectionModel().getSelectedIndex();
+        Patient temp = lv_patienten.getItems().get(index);
+        lv_patienten.getItems().remove(temp);
+        connectionHandler.deletePatient(temp);
     }
 
     @Override
