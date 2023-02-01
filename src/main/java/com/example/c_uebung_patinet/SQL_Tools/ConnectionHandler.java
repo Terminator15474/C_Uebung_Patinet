@@ -107,4 +107,17 @@ public class ConnectionHandler {
 
         return pat;
     }
+
+    public List<Religion> selectAllReligions() throws SQLException {
+        List<Religion> religions = new LinkedList<>();
+        Statement statereligion = c.createStatement();
+        ResultSet rsreligion = statereligion.executeQuery("SELECT * from Religion");
+        while (rsreligion.next()){
+            Religion religion = new Religion();
+            religion.setId(rsreligion.getInt(1));
+            religion.setName(rsreligion.getString(2));
+            religions.add(religion);
+        }
+      return religions;
+    }
 }
