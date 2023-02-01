@@ -32,7 +32,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     void addPatient(ActionEvent event) {
-
+        
     }
 
     @FXML
@@ -41,7 +41,7 @@ public class MainViewController implements Initializable {
     }
 
     @FXML
-    void deletePatient(ActionEvent event) {
+    void deletePatient(ActionEvent event) throws Exception{
         int index = lv_patienten.getSelectionModel().getSelectedIndex();
         Patient temp = lv_patienten.getItems().get(index);
         lv_patienten.getItems().remove(temp);

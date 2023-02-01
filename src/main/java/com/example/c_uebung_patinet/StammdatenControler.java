@@ -50,5 +50,29 @@ public class StammdatenControler {
 
     @FXML
     public void end(ActionEvent actionEvent) {
+        tf_svnr.getText();
+        tf_ln.getText();
+        tf_fn.getText();
+        tf_birthname.getText();
+        tf_title.getText();
+        tf_name_add.getText();
+        DatePicker birthdate = datePicker_dateOfBirth;
+        tf_placeOfBirth.getText();
+        int genderindex = cb_gender.getSelectionModel().getSelectedIndex();
+        cb_gender.getItems().get(genderindex);
+        tf_marrialStatus.getText();
+        tf_countryID.getText();
+        int countryindex = cb_country.getSelectionModel().getSelectedIndex();
+        cb_country.getItems().get(countryindex);
+        tf_postalCode.getText();
+        tf_place.getText();
+        tf_street.getText();
+        tf_hn.getText();
+        tf_vorw.getText();
+        tf_tel.getText();
+        int konfessionindex = cb_konfession.getSelectionModel().getSelectedIndex();
+        cb_konfession.getItems().get(konfessionindex);
+
+
     }
 }
