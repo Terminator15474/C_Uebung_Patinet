@@ -36,8 +36,8 @@ public class MainViewController implements Initializable {
     }
 
     @FXML
-    void changePatient(ActionEvent event) {
-
+    void changePatient(ActionEvent event) throws Exception {
+        HelloApplication.setScene("Stammdaten.fxml");
     }
 
     @FXML

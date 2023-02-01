@@ -1,10 +1,8 @@
 package com.example.c_uebung_patinet;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 public class StammdatenControler {
 
@@ -47,4 +45,10 @@ public class StammdatenControler {
     @FXML
     private ComboBox cb_konfession;
 
+    @FXML
+    private Button btn_exit;
+
+    @FXML
+    public void end(ActionEvent actionEvent) {
+    }
 }
