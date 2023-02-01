@@ -1,6 +1,15 @@
 package com.example.c_uebung_patinet.SQL_Model;
 
 public class Land {
+    public Land(String kuerzel, String name, String vorwahl) {
+        this.kuerzel = kuerzel;
+        this.name = name;
+        this.vorwahl = vorwahl;
+    }
+
+    public Land() {
+    }
+
     public String getKuerzel() {
         return kuerzel;
     }

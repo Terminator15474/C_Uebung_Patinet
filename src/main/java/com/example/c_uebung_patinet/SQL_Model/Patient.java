@@ -11,6 +11,29 @@ public class Patient {
     private String postleitzahl, ort, strasse, hausnr, tel;
     private Religion religionszugehörigkeit;
 
+    public Patient() {
+    }
+
+    public Patient(int svnr, String vorname, String nachname, String geburtsname, String title, String namenszuatz, Date geburtsdatum, String geburtsort, String geschlecht, String familienstand, Land staatsangehörigkeit, String postleitzahl, String ort, String strasse, String hausnr, String tel, Religion religionszugehörigkeit) {
+        this.svnr = svnr;
+        this.vorname = vorname;
+        this.nachname = nachname;
+        this.geburtsname = geburtsname;
+        this.title = title;
+        this.namenszuatz = namenszuatz;
+        this.geburtsdatum = geburtsdatum;
+        this.geburtsort = geburtsort;
+        this.geschlecht = geschlecht;
+        this.familienstand = familienstand;
+        this.staatsangehörigkeit = staatsangehörigkeit;
+        this.postleitzahl = postleitzahl;
+        this.ort = ort;
+        this.strasse = strasse;
+        this.hausnr = hausnr;
+        this.tel = tel;
+        this.religionszugehörigkeit = religionszugehörigkeit;
+    }
+
     public int getSvnr() {
         return svnr;
     }
