@@ -44,8 +44,9 @@ public class MainViewController implements Initializable {
             label_error.setText("An critical error occured! Please seek help and pray!");
             return;
         }
-        Parent root = FXMLLoader.load(getClass().getResource("Stammdaten.fxml"));
-        HelloApplication.global_stage.setScene(new Scene(root));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainViewController.class.getResource("/com/example/c_uebung_patinet/Stammdaten.fxml"));
+        Parent root = fxmlLoader.load();
+        HelloApplication.global_stage.getScene().setRoot(root);
     }
 
     @FXML

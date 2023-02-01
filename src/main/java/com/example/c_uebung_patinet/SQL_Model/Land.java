@@ -36,4 +36,8 @@ public class Land {
 
     private String kuerzel, name, vorwahl;
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

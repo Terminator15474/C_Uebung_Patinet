@@ -5,5 +5,7 @@ module com.example.c_uebung_patinet {
 
 
     opens com.example.c_uebung_patinet to javafx.fxml;
+    opens com.example.c_uebung_patinet.SQL_Model to javafx.fxml;
+
     exports com.example.c_uebung_patinet;
 }

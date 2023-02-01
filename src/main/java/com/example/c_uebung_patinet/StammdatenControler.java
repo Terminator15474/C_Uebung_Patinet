@@ -80,8 +80,8 @@ public class StammdatenControler implements Initializable {
             cb_country.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
                 @Override
                 public void changed(ObservableValue observableValue, Object o, Object t1) {
-                    Land l = (Land) t1;
-                    tf_countryID.setText(l.getKuerzel());
+                    String temp = (String) t1;
+                    tf_countryID.setText(temp);
                 }
             });
 
@@ -93,8 +93,8 @@ public class StammdatenControler implements Initializable {
                 tf_birthname.setText(MainViewController.selected_Patient.getGeburtsname());
                 tf_title.setText(MainViewController.selected_Patient.getTitle());
                 tf_name_add.setText(MainViewController.selected_Patient.getNamenszuatz());
-                System.out.println(MainViewController.selected_Patient.getGeburtsdatum());
-                datePicker_dateOfBirth.setValue(MainViewController.selected_Patient.getGeburtsdatum().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                datePicker_dateOfBirth.setValue(new java.sql.Date(MainViewController.selected_Patient.getGeburtsdatum().getTime()).toLocalDate());
+
                 tf_placeOfBirth.setText(MainViewController.selected_Patient.getGeburtsort());
                 cb_gender.getSelectionModel().select(MainViewController.selected_Patient.getGeschlecht());
                 tf_marrialStatus.setText(MainViewController.selected_Patient.getFamilienstand());
