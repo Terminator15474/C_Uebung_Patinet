@@ -4,6 +4,14 @@ public class Religion {
     private int id;
     private String name;
 
+    public Religion() {
+    }
+
+    public Religion(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }

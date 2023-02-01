@@ -12,7 +12,7 @@ import java.util.List;
 public class ConnectionHandler {
     Connection c = null;
 
-    public void initDatabaseConnection() throws SQLException {
+    public ConnectionHandler() throws SQLException {
         c = DriverManager.getConnection("jdbc:derby://localhost:1527/Database", "Database", "Database");
     }
 
@@ -33,7 +33,7 @@ public class ConnectionHandler {
         }
         boolean isUpdate = false;
         PreparedStatement ps;
-        if(selectPatientId(p.getSvnr()) == null) {
+        if(selectPatientId(p.getSvnr()) != null) {
             ps = c.prepareStatement("UPDATE DATABASE.PATIENT SET " +
                     "SVNR = ?, VN = ?, NN = ?, GN = ?, TITEL = ?, NAMENSZUSATZ = ?, GEBDATUM = ?, GESCHLECHT = ?," +
                     "FAMILIENSTAND = ?, STAATKUERZEL = ?, PLZ = ?, ORT = ?, STR = ?, HAUSNR = ?, TEL = ?, RELID = ? WHERE SVNR = ?");
@@ -191,5 +191,19 @@ public class ConnectionHandler {
         return ps.executeUpdate();
     }
 
+    public int insertCountry(Land l) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("INSERT INTO DATABASE.LAND VALUES(?, ?, ?)");
+        ps.setString(1, l.getKuerzel());
+        ps.setString(2, l.getName());
+        ps.setString(3, l.getVorwahl());
+        return ps.executeUpdate();
+    }
+
+    public int insertReligion(Religion r) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("INSERT INTO DATABASE.RELIGION VALUES (?, ?)");
+        ps.setInt(1, r.getId());
+        ps.setString(2, r.getName());
+        return ps.executeUpdate();
+    }
 
 }
