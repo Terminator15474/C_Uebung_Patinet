@@ -1,10 +1,24 @@
 package com.example.c_uebung_patinet;
 
+import com.example.c_uebung_patinet.SQL_Model.Land;
+import com.example.c_uebung_patinet.SQL_Tools.ConnectionHandler;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
-public class StammdatenControler {
+import java.net.URL;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.List;
+import java.util.ResourceBundle;
+
+public class StammdatenControler implements Initializable {
+    ConnectionHandler connectionHandler = null;
 
     @FXML
     private TextField tf_ln;
@@ -74,5 +88,37 @@ public class StammdatenControler {
         cb_konfession.getItems().get(konfessionindex);
 
 
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            connectionHandler = new ConnectionHandler();
+            cb_country.setItems(FXCollections.observableList(connectionHandler.selectAllCountries()));
+            cb_gender.getItems().add("Männlich");
+            cb_gender.getItems().add("Weiblich");
+            cb_gender.getItems().add("Anders");
+            cb_konfession.setItems(FXCollections.observableList(connectionHandler.selectAllReligions()));
+            cb_country.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+                @Override
+                public void changed(ObservableValue observableValue, Object o, Object t1) {
+                    Land l = (Land) t1;
+                    tf_countryID.setText(l.getKuerzel());
+                }
+            });
+
+            // check if add or change
+            if(MainViewController.selected_Patient != null) {
+                // change
+                tf_fn.setText(MainViewController.selected_Patient.getVorname());
+                tf_ln.setText(MainViewController.selected_Patient.getNachname());
+                tf_birthname.setText(MainViewController.selected_Patient.getGeburtsname());
+                tf_title.setText(MainViewController.selected_Patient.getTitle());
+                tf_name_add.setText(MainViewController.selected_Patient.getNamenszuatz());
+                datePicker_dateOfBirth.setValue(MainViewController.selected_Patient.getGeburtsdatum().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
