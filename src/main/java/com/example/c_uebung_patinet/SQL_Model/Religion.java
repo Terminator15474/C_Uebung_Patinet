@@ -29,7 +29,7 @@ public class Religion {
     }
     @Override
     public String toString() {
-        return name;
+        return id + " - " + name;
     }
 
     @Override
