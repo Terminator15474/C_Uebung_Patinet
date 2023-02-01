@@ -37,11 +37,15 @@ public class MainViewController implements Initializable {
 
     @FXML
     void changePatient(ActionEvent event) throws Exception {
+        if(selected_Patient == null) {
+            label_error.setText("An critical error occured! Please seek help and pray!");
+            return;
+        }
         HelloApplication.setScene("Stammdaten.fxml");
     }
 
     @FXML
-    void deletePatient(ActionEvent event) {
+    void deletePatient(ActionEvent event) throws Exception {
         int index = lv_patienten.getSelectionModel().getSelectedIndex();
         Patient temp = lv_patienten.getItems().get(index);
         lv_patienten.getItems().remove(temp);
