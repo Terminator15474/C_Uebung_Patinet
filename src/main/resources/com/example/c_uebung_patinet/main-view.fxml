@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="445.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.c_uebung_patinet.MainViewController">
    <children>
       <Label layoutX="43.0" layoutY="14.0" text="Patienten">
@@ -14,9 +13,10 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <ListView fx:id="lv_patienten" layoutX="50.0" layoutY="44.0" prefHeight="338.0" prefWidth="290.0" />
-      <Button layoutX="354.0" layoutY="290.0" mnemonicParsing="false" onAction="#changePatient" text="Ändern" />
-      <Button layoutX="352.0" layoutY="322.0" mnemonicParsing="false" onAction="#deletePatient" text="Löschen" />
-      <Button layoutX="352.0" layoutY="356.0" mnemonicParsing="false" onAction="#addPatient" text="Hinzufügen" />
+      <ListView fx:id="lv_patienten" layoutX="50.0" layoutY="44.0" prefHeight="301.0" prefWidth="290.0" />
+      <Button fx:id="btn_change" layoutX="355.0" layoutY="254.0" mnemonicParsing="false" onAction="#changePatient" text="Ändern" />
+      <Button fx:id="btn_delete" layoutX="353.0" layoutY="286.0" mnemonicParsing="false" onAction="#deletePatient" text="Löschen" />
+      <Button fx:id="btn_add" layoutX="353.0" layoutY="320.0" mnemonicParsing="false" onAction="#addPatient" text="Hinzufügen" />
+      <Label fx:id="label_error" layoutX="20.0" layoutY="359.0" prefHeight="18.0" prefWidth="319.0" />
    </children>
 </AnchorPane>
