@@ -7,7 +7,10 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -41,7 +44,8 @@ public class MainViewController implements Initializable {
             label_error.setText("An critical error occured! Please seek help and pray!");
             return;
         }
-        HelloApplication.setScene("Stammdaten.fxml");
+        Parent root = FXMLLoader.load(getClass().getResource("Stammdaten.fxml"));
+        HelloApplication.global_stage.setScene(new Scene(root));
     }
 
     @FXML
@@ -70,6 +74,7 @@ public class MainViewController implements Initializable {
             });
 
         } catch (Exception e) {
+            e.printStackTrace();
             label_error.setText("An critical error occured! Please seek help and pray!");
         }
     }

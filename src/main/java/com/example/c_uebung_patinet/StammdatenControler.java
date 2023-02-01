@@ -18,7 +18,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class StammdatenControler implements Initializable {
-    ConnectionHandler connectionHandler = null;
+
+    public StammdatenControler() {}
+    public ConnectionHandler connectionHandler = null;
 
     @FXML
     private TextField tf_ln;
@@ -91,6 +93,7 @@ public class StammdatenControler implements Initializable {
                 tf_birthname.setText(MainViewController.selected_Patient.getGeburtsname());
                 tf_title.setText(MainViewController.selected_Patient.getTitle());
                 tf_name_add.setText(MainViewController.selected_Patient.getNamenszuatz());
+                System.out.println(MainViewController.selected_Patient.getGeburtsdatum());
                 datePicker_dateOfBirth.setValue(MainViewController.selected_Patient.getGeburtsdatum().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
                 tf_placeOfBirth.setText(MainViewController.selected_Patient.getGeburtsort());
                 cb_gender.getSelectionModel().select(MainViewController.selected_Patient.getGeschlecht());
@@ -108,9 +111,11 @@ public class StammdatenControler implements Initializable {
         }
     }
 
+    @FXML
     public void addCountry(ActionEvent actionEvent) {
     }
 
+    @FXML
     public void addReligion(ActionEvent actionEvent) {
     }
 }
