@@ -1,0 +1,8 @@
+INSERT INTO DATABASE.LAND VALUES ('AT', 'Österreich', '43');
+INSERT INTO DATABASE.LAND VALUES ('DE', 'Deutschland', '49');
+
+INSERT INTO DATABASE.RELIGION VALUES (3, 'RK');
+INSERT INTO DATABASE.RELIGION VALUES (2, 'RE');
+
+INSERT INTO DATABASE.PATIENT VALUES (123,'Sepp','Huber','Huber',NULL,NULL,2023-02-01,'Ried','männlich','ledig','AT','4600','Wels','Linzerstraße','187','1912412',3);
+INSERT INTO DATABASE.PATIENT VALUES (1234,'Franz','Mayer','HALLO',NULL,NULL,2010-02-01,'Wolfseck','männlich','ledig','DE','4710','Grieskirchen','Nelkenstraße','420','67762559887',2);
