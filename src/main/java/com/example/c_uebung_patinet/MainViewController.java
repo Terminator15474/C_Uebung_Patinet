@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 
 public class MainViewController implements Initializable {
     ConnectionHandler connectionHandler = null;
-    static Patient selected_Patient = null;
+    public static Patient selected_Patient = null;
     @FXML
     private ListView<Patient> lv_patienten;
     @FXML
