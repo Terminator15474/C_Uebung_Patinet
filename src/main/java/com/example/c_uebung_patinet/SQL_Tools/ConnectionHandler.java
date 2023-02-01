@@ -57,7 +57,7 @@ public class ConnectionHandler {
         ps.setString(4, p.getGeburtsname());
         ps.setString(5, p.getTitle());
         ps.setString(6, p.getNamenszuatz());
-        ps.setDate(7, (Date)p.getGeburtsdatum());
+        ps.setDate(7, new java.sql.Date(p.getGeburtsdatum().getTime()));
         ps.setString(8, p.getGeburtsort());
         ps.setString(9, p.getGeschlecht());
         ps.setString(10, p.getFamilienstand());
@@ -111,22 +111,15 @@ public class ConnectionHandler {
         pat.setGeschlecht(rs.getString(9));
         pat.setFamilienstand(rs.getString(10));
 
-        Land l = new Land();
-        l.setKuerzel(rs.getString(11));
-        l.setName(rs.getString(12));
-        l.setVorwahl(rs.getString(13));
-        pat.setStaatsangehörigkeit(l);
+        pat.setStaatsangehörigkeit(this.selectCountryByKuerzel(rs.getString(11)));
 
-        pat.setPostleitzahl(rs.getString(14));
-        pat.setOrt(rs.getString(15));
-        pat.setStrasse(rs.getString(16));
-        pat.setHausnr(rs.getString(17));
+        pat.setPostleitzahl(rs.getString(13));
+        pat.setOrt(rs.getString(14));
+        pat.setStrasse(rs.getString(15));
+        pat.setHausnr(rs.getString(16));
         pat.setTel(rs.getString(18));
 
-        Religion rel = new Religion();
-        rel.setId(rs.getInt(19));
-        rel.setName(rs.getString(20));
-        pat.setReligionszugehörigkeit(rel);
+        pat.setReligionszugehörigkeit(this.selectReligionByID(rs.getInt(19)));
 
         return pat;
     }

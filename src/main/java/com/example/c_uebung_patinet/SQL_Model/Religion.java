@@ -31,4 +31,11 @@ public class Religion {
     public String toString() {
         return name;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Religion)) return false;
+        if(this.id == ((Religion)obj).getId()) return true;
+        return false;
+    }
 }

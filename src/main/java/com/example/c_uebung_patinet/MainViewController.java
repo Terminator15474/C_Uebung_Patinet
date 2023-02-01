@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -24,7 +25,7 @@ public class MainViewController implements Initializable {
     ConnectionHandler connectionHandler = null;
     public static Patient selected_Patient = null;
     @FXML
-    private ListView<Patient> lv_patienten;
+    public ListView<Patient> lv_patienten;
     @FXML
     private Label label_error;
     @FXML
@@ -35,8 +36,17 @@ public class MainViewController implements Initializable {
     private Button btn_add;
 
     @FXML
-    void addPatient(ActionEvent event) {
-
+    void addPatient(ActionEvent event) throws IOException {
+        selected_Patient = null;
+        FXMLLoader fxmlLoader = new FXMLLoader(MainViewController.class.getResource("Stammdaten.fxml"));
+        Parent root = fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Add neu Patient");
+        stage.show();
+        stage.getScene().getWindow().setOnHidden(windowEvent -> {
+            stage.close();
+        });
     }
 
     @FXML
@@ -49,7 +59,11 @@ public class MainViewController implements Initializable {
         Parent root = fxmlLoader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.setTitle(selected_Patient.getNachname() + " " + selected_Patient.getVorname());
         stage.show();
+        stage.getScene().getWindow().setOnHidden(windowEvent -> {
+            stage.close();
+        });
     }
 
     @FXML
@@ -63,6 +77,9 @@ public class MainViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+            UpdateUIThread uiThread = new UpdateUIThread(this);
+            Thread d = new Thread(uiThread);
+            d.start();
             connectionHandler = new ConnectionHandler();
             List<Patient> patients = connectionHandler.selectPatients();
             lv_patienten.setItems(FXCollections.observableList(patients));

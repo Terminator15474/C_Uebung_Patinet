@@ -40,4 +40,11 @@ public class Land {
     public String toString() {
         return name;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Land)) return false;
+        if(((Land)obj).getKuerzel().equals(this.getKuerzel())) return true;
+        return false;
+    }
 }
