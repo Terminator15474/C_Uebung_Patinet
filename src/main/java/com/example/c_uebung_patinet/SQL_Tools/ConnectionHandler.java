@@ -32,10 +32,10 @@ public class ConnectionHandler {
             throw new Exception("Connection is not initialized");
         }
         boolean isUpdate = false;
-        PreparedStatement ps;
+        PreparedStatement ps = null;
         if(selectPatientId(p.getSvnr()) != null) {
             ps = c.prepareStatement("UPDATE DATABASE.PATIENT SET " +
-                    "SVNR = ?, VN = ?, NN = ?, GN = ?, TITEL = ?, NAMENSZUSATZ = ?, GEBDATUM = ?, GESCHLECHT = ?," +
+                    "SVNR = ?, VN = ?, NN = ?, GN = ?, TITEL = ?, NAMENSZUSATZ = ?, GEBDATUM = ?, GEBORT = ?, GESCHLECHT = ?," +
                     "FAMILIENSTAND = ?, STAATKUERZEL = ?, PLZ = ?, ORT = ?, STR = ?, HAUSNR = ?, TEL = ?, RELID = ? WHERE SVNR = ?");
             isUpdate = true;
         } else {
@@ -68,7 +68,7 @@ public class ConnectionHandler {
 
     public LinkedList<Patient> selectPatients() throws Exception {
         LinkedList<Patient> patients = new LinkedList<>();
-        ResultSet rs = c.createStatement().executeQuery("SELECT * FROM DATABASE.GET_ALL_PATIENTS");
+        ResultSet rs = c.createStatement().executeQuery("SELECT DISTINCT * FROM DATABASE.GET_ALL_PATIENTS");
         while(rs.next()) {
             patients.add(parseResultSetToPatient(rs));
         }
@@ -76,7 +76,7 @@ public class ConnectionHandler {
     }
 
     public Patient selectPatientId (int svnr) throws Exception {
-        PreparedStatement ps = c.prepareStatement("SELECT * FROM DATABASE.GET_ALL_PATIENTS WHERE ID = ?");
+        PreparedStatement ps = c.prepareStatement("SELECT * FROM DATABASE.GET_ALL_PATIENTS WHERE SVNR = ?");
         ps.setInt(1, svnr);
         ResultSet rs = ps.executeQuery();
         if(rs.next()) {
@@ -192,6 +192,7 @@ public class ConnectionHandler {
     }
 
     public int insertCountry(Land l) throws SQLException {
+        if(selectCountryByKuerzel(l.getKuerzel()) != null) return -1;
         PreparedStatement ps = c.prepareStatement("INSERT INTO DATABASE.LAND VALUES(?, ?, ?)");
         ps.setString(1, l.getKuerzel());
         ps.setString(2, l.getName());
@@ -200,6 +201,7 @@ public class ConnectionHandler {
     }
 
     public int insertReligion(Religion r) throws SQLException {
+        if(selectReligionByID(r.getId()) != null) return -1;
         PreparedStatement ps = c.prepareStatement("INSERT INTO DATABASE.RELIGION VALUES (?, ?)");
         ps.setInt(1, r.getId());
         ps.setString(2, r.getName());

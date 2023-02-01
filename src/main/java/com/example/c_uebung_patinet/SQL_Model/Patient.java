@@ -169,4 +169,9 @@ public class Patient {
     public void setReligionszugehörigkeit(Religion religionszugehörigkeit) {
         this.religionszugehörigkeit = religionszugehörigkeit;
     }
+
+    @Override
+    public String toString() {
+        return this.vorname + " " + this.nachname;
+    }
 }
