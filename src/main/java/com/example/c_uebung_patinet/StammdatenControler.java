@@ -272,6 +272,7 @@ public class StammdatenControler implements Initializable {
 
         b.setOnAction(click);
         r.getChildren().addAll(id, nd, xd, b);
+        r.autosize();
         Scene scene = new Scene(r);
         root.setScene(scene);
         root.setOnHidden(windowEvent -> {
@@ -313,6 +314,7 @@ public class StammdatenControler implements Initializable {
 
         b.setOnAction(click);
         r.getChildren().addAll(id, nd, b);
+        r.autosize();
         Scene scene = new Scene(r);
         root.setScene(scene);
         root.setOnHidden(windowEvent -> {

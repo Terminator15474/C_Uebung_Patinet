@@ -23,6 +23,9 @@ import java.util.ResourceBundle;
 
 public class MainViewController implements Initializable {
     ConnectionHandler connectionHandler = null;
+
+    public static MainViewController mostRecentController;
+
     public static Patient selected_Patient = null;
     @FXML
     public ListView<Patient> lv_patienten;
@@ -74,12 +77,16 @@ public class MainViewController implements Initializable {
         connectionHandler.deletePatient(temp);
     }
 
+    UpdateUIThread uiThread;
+    public Thread updateThread;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            UpdateUIThread uiThread = new UpdateUIThread(this);
-            Thread d = new Thread(uiThread);
-            d.start();
+            mostRecentController = this;
+            uiThread = new UpdateUIThread(this);
+            updateThread = new Thread(uiThread);
+            updateThread.start();
             connectionHandler = new ConnectionHandler();
             List<Patient> patients = connectionHandler.selectPatients();
             lv_patienten.setItems(FXCollections.observableList(patients));
@@ -98,5 +105,9 @@ public class MainViewController implements Initializable {
             e.printStackTrace();
             label_error.setText("An critical error occured! Please seek help and pray!");
         }
+    }
+
+    public void updateListView(ActionEvent actionEvent) {
+        uiThread.update();
     }
 }

@@ -17,26 +17,32 @@ public class UpdateUIThread extends Task<Void> {
 
 
     @Override
-    protected Void call() throws Exception {
+    protected Void call() {
         while (true) {
             try {
-                synchronized (mwc.lv_patienten) {
-                    Platform.runLater(() -> {
-                        try {
-                            mwc.lv_patienten.getItems().setAll(ch.selectPatients());
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
-                    });
-                }
+                update();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
             try {
-                Thread.sleep(10000);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+        }
+    }
+
+    public void update() {
+        synchronized (mwc.lv_patienten) {
+            Platform.runLater(() -> {
+                try {
+                    int selectIndex = mwc.lv_patienten.getSelectionModel().getSelectedIndex();
+                    mwc.lv_patienten.getItems().setAll(ch.selectPatients());
+                    mwc.lv_patienten.getSelectionModel().select(selectIndex);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
         }
     }
 }
