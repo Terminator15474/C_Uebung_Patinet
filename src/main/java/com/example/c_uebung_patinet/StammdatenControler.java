@@ -92,9 +92,25 @@ public class StammdatenControler implements Initializable {
                 tf_title.setText(MainViewController.selected_Patient.getTitle());
                 tf_name_add.setText(MainViewController.selected_Patient.getNamenszuatz());
                 datePicker_dateOfBirth.setValue(MainViewController.selected_Patient.getGeburtsdatum().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                tf_placeOfBirth.setText(MainViewController.selected_Patient.getGeburtsort());
+                cb_gender.getSelectionModel().select(MainViewController.selected_Patient.getGeschlecht());
+                tf_marrialStatus.setText(MainViewController.selected_Patient.getFamilienstand());
+                tf_countryID.setText(MainViewController.selected_Patient.getStaatsangehörigkeit().getKuerzel());
+                cb_country.getSelectionModel().select(MainViewController.selected_Patient.getStaatsangehörigkeit().getName());
+                tf_postalCode.setText(MainViewController.selected_Patient.getPostleitzahl());
+                tf_place.setText(MainViewController.selected_Patient.getOrt());
+                tf_vorw.setText(MainViewController.selected_Patient.getStaatsangehörigkeit().getVorwahl());
+                tf_tel.setText(MainViewController.selected_Patient.getTel());
+                cb_konfession.getSelectionModel().select(MainViewController.selected_Patient.getReligionszugehörigkeit().getName());
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void addCountry(ActionEvent actionEvent) {
+    }
+
+    public void addReligion(ActionEvent actionEvent) {
     }
 }
