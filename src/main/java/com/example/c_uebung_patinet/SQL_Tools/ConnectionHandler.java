@@ -12,18 +12,26 @@ import java.util.List;
 public class ConnectionHandler {
     Connection c = null;
 
+    /**
+     * Initialised the Connection to the Database
+     * @throws SQLException when the Connection to the local Database fails for some reason
+     */
     public ConnectionHandler() throws SQLException {
         c = DriverManager.getConnection("jdbc:derby://localhost:1527/Database", "Database", "Database");
     }
 
+    /**
+     * Closes the Database connection (REQUIRED!)
+     * @throws SQLException when the close fails for any reason
+     */
     public void closeDatabaseConnection() throws SQLException {
         c.close();
     }
 
     /**
+     * This method adds a Patient to the Database if it doesn't already exist in the database, when it already exists the entry is updated
      *
-     * TODO: Add a check if the patient already exists, then modify them in the database
-     * @param p Patient to be added to Database
+     * @param p Patient to be added to / updated on Database
      * @return the number of lines effected in the Database
      * @throws Exception when an SQLException occurs or the connection with the database is not initialised
      */
@@ -32,10 +40,10 @@ public class ConnectionHandler {
             throw new Exception("Connection is not initialized");
         }
         boolean isUpdate = false;
-        PreparedStatement ps;
+        PreparedStatement ps = null;
         if(selectPatientId(p.getSvnr()) != null) {
             ps = c.prepareStatement("UPDATE DATABASE.PATIENT SET " +
-                    "SVNR = ?, VN = ?, NN = ?, GN = ?, TITEL = ?, NAMENSZUSATZ = ?, GEBDATUM = ?, GESCHLECHT = ?," +
+                    "SVNR = ?, VN = ?, NN = ?, GN = ?, TITEL = ?, NAMENSZUSATZ = ?, GEBDATUM = ?, GEBORT = ?, GESCHLECHT = ?," +
                     "FAMILIENSTAND = ?, STAATKUERZEL = ?, PLZ = ?, ORT = ?, STR = ?, HAUSNR = ?, TEL = ?, RELID = ? WHERE SVNR = ?");
             isUpdate = true;
         } else {
@@ -66,9 +74,14 @@ public class ConnectionHandler {
         return ps.executeUpdate();
     }
 
-    public LinkedList<Patient> selectPatients() throws Exception {
+    /**
+     * Returns a List of all
+     * @return
+     * @throws Exception
+     */
+    public List<Patient> selectPatients() throws Exception {
         LinkedList<Patient> patients = new LinkedList<>();
-        ResultSet rs = c.createStatement().executeQuery("SELECT * FROM DATABASE.GET_ALL_PATIENTS");
+        ResultSet rs = c.createStatement().executeQuery("SELECT DISTINCT * FROM DATABASE.GET_ALL_PATIENTS");
         while(rs.next()) {
             patients.add(parseResultSetToPatient(rs));
         }
@@ -76,7 +89,7 @@ public class ConnectionHandler {
     }
 
     public Patient selectPatientId (int svnr) throws Exception {
-        PreparedStatement ps = c.prepareStatement("SELECT * FROM DATABASE.GET_ALL_PATIENTS WHERE ID = ?");
+        PreparedStatement ps = c.prepareStatement("SELECT * FROM DATABASE.GET_ALL_PATIENTS WHERE SVNR = ?");
         ps.setInt(1, svnr);
         ResultSet rs = ps.executeQuery();
         if(rs.next()) {
@@ -192,6 +205,7 @@ public class ConnectionHandler {
     }
 
     public int insertCountry(Land l) throws SQLException {
+        if(selectCountryByKuerzel(l.getKuerzel()) != null) return -1;
         PreparedStatement ps = c.prepareStatement("INSERT INTO DATABASE.LAND VALUES(?, ?, ?)");
         ps.setString(1, l.getKuerzel());
         ps.setString(2, l.getName());
@@ -200,6 +214,7 @@ public class ConnectionHandler {
     }
 
     public int insertReligion(Religion r) throws SQLException {
+        if(selectReligionByID(r.getId()) != null) return -1;
         PreparedStatement ps = c.prepareStatement("INSERT INTO DATABASE.RELIGION VALUES (?, ?)");
         ps.setInt(1, r.getId());
         ps.setString(2, r.getName());

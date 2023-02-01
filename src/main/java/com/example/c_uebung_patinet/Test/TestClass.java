@@ -16,11 +16,14 @@ public class TestClass {
         Religion r = new Religion(3, "römisch-evangälisch");
         Patient patient = new Patient(123, "Sepp", "Huber", "Huber", null, null, new Date(System.currentTimeMillis()), "Ried", "männlich", "ledig", l, "4600", "Wels", "Linzerstraße", "187", "1912412", r);
         try {
+            System.out.println(ch.selectPatientId(patient.getSvnr()));
             ch.insertCountry(l);
             ch.insertReligion(r);
             ch.insertPatientInDatabase(patient);
             List<Patient> patients = ch.selectPatients();
+            // ch.deletePatient(patient);
             System.out.println(patients);
+            System.out.println(ch.selectPatientId(17241));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {

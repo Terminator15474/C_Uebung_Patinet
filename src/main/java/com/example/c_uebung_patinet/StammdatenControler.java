@@ -18,7 +18,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class StammdatenControler implements Initializable {
-    ConnectionHandler connectionHandler = null;
+
+    public StammdatenControler() {}
+    public ConnectionHandler connectionHandler = null;
 
     @FXML
     private TextField tf_ln;
@@ -115,10 +117,29 @@ public class StammdatenControler implements Initializable {
                 tf_birthname.setText(MainViewController.selected_Patient.getGeburtsname());
                 tf_title.setText(MainViewController.selected_Patient.getTitle());
                 tf_name_add.setText(MainViewController.selected_Patient.getNamenszuatz());
+                System.out.println(MainViewController.selected_Patient.getGeburtsdatum());
                 datePicker_dateOfBirth.setValue(MainViewController.selected_Patient.getGeburtsdatum().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                tf_placeOfBirth.setText(MainViewController.selected_Patient.getGeburtsort());
+                cb_gender.getSelectionModel().select(MainViewController.selected_Patient.getGeschlecht());
+                tf_marrialStatus.setText(MainViewController.selected_Patient.getFamilienstand());
+                tf_countryID.setText(MainViewController.selected_Patient.getStaatsangehörigkeit().getKuerzel());
+                cb_country.getSelectionModel().select(MainViewController.selected_Patient.getStaatsangehörigkeit().getName());
+                tf_postalCode.setText(MainViewController.selected_Patient.getPostleitzahl());
+                tf_place.setText(MainViewController.selected_Patient.getOrt());
+                tf_vorw.setText(MainViewController.selected_Patient.getStaatsangehörigkeit().getVorwahl());
+                tf_tel.setText(MainViewController.selected_Patient.getTel());
+                cb_konfession.getSelectionModel().select(MainViewController.selected_Patient.getReligionszugehörigkeit().getName());
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @FXML
+    public void addCountry(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void addReligion(ActionEvent actionEvent) {
     }
 }

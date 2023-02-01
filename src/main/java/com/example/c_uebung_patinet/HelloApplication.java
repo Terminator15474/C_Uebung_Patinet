@@ -12,18 +12,14 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         global_stage = stage;
-        setScene("main-view.fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        global_stage.setTitle("Patientenverwaltung");
+        global_stage.setScene(scene);
         global_stage.show();
     }
 
     public static void main(String[] args) {
         launch();
-    }
-
-    public static void setScene(String fxmlFilename) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(fxmlFilename));
-        Scene scene = new Scene(fxmlLoader.load());
-        global_stage.setTitle("Patientenverwaltung");
-        global_stage.setScene(scene);
     }
 }

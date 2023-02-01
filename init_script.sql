@@ -26,7 +26,6 @@ CREATE TABLE DATABASE.PATIENT (
     ort varchar(30) not null,
     str varchar(20) not null,
     hausnr varchar(5) not null,
-    vorwahl varchar(4) not null,
     tel varchar(20) not null,
     relID integer not null
 );

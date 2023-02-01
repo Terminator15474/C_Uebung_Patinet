@@ -46,5 +46,7 @@
       <ComboBox fx:id="cb_country" layoutX="167.0" layoutY="327.0" prefHeight="26.0" prefWidth="266.0" />
       <ComboBox fx:id="cb_konfession" layoutX="133.0" layoutY="431.0" prefWidth="150.0" />
       <Button fx:id="btn_exit" layoutX="481.0" layoutY="477.0" mnemonicParsing="false" onAction="#end" text="Fertig" />
+      <Button layoutX="451.0" layoutY="327.0" mnemonicParsing="false" onAction="#addCountry" text="Land Hinzufügen" />
+      <Button layoutX="435.0" layoutY="431.0" mnemonicParsing="false" onAction="#addReligion" text="Konfession Hinzufügen" />
    </children>
 </AnchorPane>
