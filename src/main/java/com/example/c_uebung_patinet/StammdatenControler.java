@@ -66,6 +66,80 @@ public class StammdatenControler implements Initializable {
 
     @FXML
     public void end(ActionEvent actionEvent) {
+        if(tf_svnr.getText() == null || tf_svnr.getText().equals("")){
+            return;
+        }
+
+        if(tf_ln.getText() == null || tf_ln.getText().equals("")){
+            return;
+        }
+
+        if(tf_fn.getText() == null || tf_fn.getText().equals("")){
+            return;
+        }
+
+        tf_birthname.getText();
+
+        tf_title.getText();
+
+        tf_name_add.getText();
+
+        if(datePicker_dateOfBirth.getValue() == null){
+            return;
+        }
+
+        if(tf_placeOfBirth.getText() == null || tf_placeOfBirth.getText().equals("")){
+            return;
+        }
+
+        int genderindex = cb_gender.getSelectionModel().getSelectedIndex();
+        if (cb_gender.getItems().get(genderindex) == null){
+            return;
+        }
+
+        if(tf_marrialStatus.getText() == null || tf_marrialStatus.getText().equals("")){
+            return;
+        }
+
+        if (tf_countryID.getText() == null || tf_countryID.getText().equals("")) {
+            return;
+        }
+
+        int countryindex = cb_country.getSelectionModel().getSelectedIndex();
+        if(cb_country.getItems().get(countryindex) == null){
+            return;
+        }
+
+        if (tf_postalCode.getText() == null || tf_postalCode.getText().equals("")){
+            return;
+        }
+
+        if (tf_place.getText() == null || tf_place.getText().equals("")){
+            return;
+        }
+
+        if (tf_street.getText() == null || tf_street.getText().equals("")){
+            return;
+        }
+        if (tf_hn.getText() == null || tf_hn.getText().equals("")){
+            return;
+        }
+
+        if (tf_vorw.getText() == null || tf_vorw.getText().equals("")){
+            return;
+        }
+
+        if (tf_tel.getText() == null || tf_tel.getText().equals("")){
+            return;
+        }
+
+        int konfessionindex = cb_konfession.getSelectionModel().getSelectedIndex();
+        if(cb_konfession.getItems().get(konfessionindex) == null){
+            return;
+        }
+
+
+
     }
 
     @Override
