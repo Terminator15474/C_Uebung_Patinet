@@ -31,9 +31,13 @@ public class ConnectionHandler {
         if(c == null) {
             throw new Exception("Connection is not initialized");
         }
+        boolean isUpdate = false;
         PreparedStatement ps;
         if(selectPatientId(p.getSvnr()) == null) {
-            ps = c.prepareStatement("UPDATE DATABASE.PATIENT SET SVNR = ?, VN = ?, NN = ? WHERE SVNR = ?");
+            ps = c.prepareStatement("UPDATE DATABASE.PATIENT SET " +
+                    "SVNR = ?, VN = ?, NN = ?, GN = ?, TITEL = ?, NAMENSZUSATZ = ?, GEBDATUM = ?, GESCHLECHT = ?," +
+                    "FAMILIENSTAND = ?, STAATKUERZEL = ?, PLZ = ?, ORT = ?, STR = ?, HAUSNR = ?, TEL = ?, RELID = ? WHERE SVNR = ?");
+            isUpdate = true;
         } else {
             // INSERT INTO PATIENT VALUES (17242, 'Holzinger', 'Alexander', 'Holzinger', 'Ing', NULL, '1999-02-24', 'Wolfseck am Hausruck', 'männlich', 'ledig', 'D', '4600', 'Wels', 'Linzerstraße', '187', '6776558107', 1);
             ps = c.prepareStatement("INSERT INTO DATABASE.PATIENT VALUES (" +
@@ -46,13 +50,19 @@ public class ConnectionHandler {
         ps.setString(5, p.getTitle());
         ps.setString(6, p.getNamenszuatz());
         ps.setDate(7, (Date)p.getGeburtsdatum());
-        ps.setString(8, p.getGeschlecht());
-        ps.setString(9, p.getFamilienstand());
-        ps.setString(10, p.getStaatsangehörigkeit().getKuerzel());
-        ps.setString(11, p.getPostleitzahl());
-        ps.setString(12, p.getHausnr());
-        ps.setString(13, p.getTel());
-        ps.setInt(14, p.getReligionszugehörigkeit().getId());
+        ps.setString(8, p.getGeburtsort());
+        ps.setString(9, p.getGeschlecht());
+        ps.setString(10, p.getFamilienstand());
+        ps.setString(11, p.getStaatsangehörigkeit().getKuerzel());
+        ps.setString(12, p.getPostleitzahl());
+        ps.setString(13, p.getOrt());
+        ps.setString(14, p.getStrasse());
+        ps.setString(15, p.getHausnr());
+        ps.setString(16, p.getTel());
+        ps.setInt(17, p.getReligionszugehörigkeit().getId());
+        if(isUpdate) {
+            ps.setInt(18, p.getSvnr());
+        }
         return ps.executeUpdate();
     }
 
@@ -149,8 +159,36 @@ public class ConnectionHandler {
         return null;
     }
 
-    public int deletePatient(Patient p) {
-        return -1;
+    public Religion selectReligionByID(int id) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("SELECT * FROM RELIGION WHERE ID = ?");
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+        if(rs.next()) {
+            Religion r = new Religion();
+            r.setId(rs.getInt(1));
+            r.setName(rs.getString(2));
+            return r;
+        }
+        return null;
+    }
+
+
+    public int deletePatient(Patient p) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("DELETE FROM DATABASE.PATIENT WHERE SVNR = ?");
+        ps.setInt(1, p.getSvnr());
+        return ps.executeUpdate();
+    }
+
+    public int deleteCountry(Land l) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("DELETE FROM DATABASE.LAND WHERE KUERZEL = ?");
+        ps.setString(1, l.getKuerzel());
+        return ps.executeUpdate();
+    }
+
+    public int deleteReligion(Religion r) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("DELETE FROM DATABASE.RELIGION WHERE ID = ?");
+        ps.setInt(1, r.getId());
+        return ps.executeUpdate();
     }
 
 
