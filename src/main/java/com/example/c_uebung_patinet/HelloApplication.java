@@ -24,9 +24,10 @@ public class HelloApplication extends Application {
             try {
                 MainViewController.mostRecentController.connectionHandler.closeDatabaseConnection();
                 MainViewController.mostRecentController.updateThread.interrupt();
-                Platform.exit();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
+            } finally {
+                Platform.exit();
             }
         });
     }

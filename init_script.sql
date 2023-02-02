@@ -1,4 +1,4 @@
-CREATE SCHEMA DATABASE;
+-- CREATE SCHEMA DATABASE;
 CREATE TABLE DATABASE.RELIGION (
     id integer not null primary key,
     name varchar(30) not null
@@ -21,13 +21,13 @@ CREATE TABLE DATABASE.PATIENT (
     gebort varchar(40) not null,
     geschlecht varchar(20) not null,
     familienstand varchar(20) not null,
-    staatKuerzel varchar(3) not null,
+    staatKuerzel varchar(3) not null references LAND(KUERZEL),
     plz varchar(6) not null,
     ort varchar(30) not null,
     str varchar(20) not null,
     hausnr varchar(5) not null,
     tel varchar(20) not null,
-    relID integer not null
+    relID integer not null references RELIGION(ID)
 );
 
 CREATE VIEW DATABASE.GET_ALL_PATIENTS AS
