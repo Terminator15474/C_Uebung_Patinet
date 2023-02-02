@@ -226,6 +226,7 @@ public class StammdatenControler implements Initializable {
                 // System.out.println(cb_country.getItems().indexOf(MainViewController.selected_Patient.getStaatsangehörigkeit()));
                 // System.out.println(cb_country.getItems().stream().filter(l -> l.getKuerzel().equals(MainViewController.selected_Patient.getStaatsangehörigkeit().getKuerzel())).collect(Collectors.toList()));
                 tf_postalCode.setText(MainViewController.selected_Patient.getPostleitzahl());
+                System.out.println(MainViewController.selected_Patient.getPostleitzahl());
                 tf_place.setText(MainViewController.selected_Patient.getOrt());
                 tf_street.setText(MainViewController.selected_Patient.getStrasse());
                 tf_hn.setText(MainViewController.selected_Patient.getHausnr());

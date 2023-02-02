@@ -113,10 +113,10 @@ public class ConnectionHandler {
 
         pat.setStaatsangehörigkeit(this.selectCountryByKuerzel(rs.getString(11)));
 
-        pat.setPostleitzahl(rs.getString(13));
-        pat.setOrt(rs.getString(14));
-        pat.setStrasse(rs.getString(15));
-        pat.setHausnr(rs.getString(16));
+        pat.setPostleitzahl(rs.getString(14));
+        pat.setOrt(rs.getString(15));
+        pat.setStrasse(rs.getString(16));
+        pat.setHausnr(rs.getString(17));
         pat.setTel(rs.getString(18));
 
         pat.setReligionszugehörigkeit(this.selectReligionByID(rs.getInt(19)));
