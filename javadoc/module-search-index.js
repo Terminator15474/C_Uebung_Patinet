@@ -1,0 +1,1 @@
+moduleSearchIndex = [{"l":"com.example.c_uebung_patinet"}];updateSearchResults();

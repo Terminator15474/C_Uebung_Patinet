@@ -6,6 +6,10 @@ import javafx.concurrent.Task;
 
 import java.sql.SQLException;
 
+/**
+ * Thread to Update the ListView in the UI
+ * @author lmayer
+ */
 public class UpdateUIThread extends Task<Void> {
     MainViewController mwc;
     ConnectionHandler ch;
@@ -32,6 +36,9 @@ public class UpdateUIThread extends Task<Void> {
         }
     }
 
+    /**
+     * Method to update the UI in the Main View
+     */
     public void update() {
         synchronized (mwc.lv_patienten) {
             Platform.runLater(() -> {

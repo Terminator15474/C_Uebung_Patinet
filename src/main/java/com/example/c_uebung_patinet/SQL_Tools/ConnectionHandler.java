@@ -9,6 +9,10 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * The Class to handle the Database connection and queries
+ * @author lmayer, aholzinger, jdomert
+ */
 public class ConnectionHandler {
     Connection c = null;
 
@@ -75,9 +79,10 @@ public class ConnectionHandler {
     }
 
     /**
-     * Returns a List of all
-     * @return
+     * Returns a List of all Patients in the Database
+     * @return a List of Patients
      * @throws Exception
+     * @author lmayer, aholzinger
      */
     public List<Patient> selectPatients() throws Exception {
         LinkedList<Patient> patients = new LinkedList<>();
@@ -88,6 +93,13 @@ public class ConnectionHandler {
         return patients;
     }
 
+    /**
+     * Returns a Patient with the given SVNR
+     * @param svnr the SVNR of the Patient to be returned
+     * @return null if the SVNR does not exist, a Patient if the SVNR is Valid
+     * @throws Exception if something goes wrong
+     * @author lmayer
+     */
     public Patient selectPatientId (int svnr) throws Exception {
         PreparedStatement ps = c.prepareStatement("SELECT * FROM DATABASE.GET_ALL_PATIENTS WHERE SVNR = ?");
         ps.setInt(1, svnr);
@@ -98,6 +110,13 @@ public class ConnectionHandler {
         return null;
     }
 
+    /**
+     * Method to parse a Result Set entry to a Patient
+     * @param rs
+     * @return Patient
+     * @throws SQLException
+     * @author aholzinger
+     */
     private Patient parseResultSetToPatient(ResultSet rs) throws SQLException {
         Patient pat = new Patient();
         pat.setSvnr(rs.getInt(1));
@@ -124,6 +143,12 @@ public class ConnectionHandler {
         return pat;
     }
 
+    /**
+     * Returns a List of all Religions in the Database
+     * @return List of all Religions
+     * @throws SQLException when a Exception with the SQL occurs
+     * @author aholzinger
+     */
     public List<Religion> selectAllReligions() throws SQLException {
         List<Religion> religions = new LinkedList<>();
         Statement statereligion = c.createStatement();
@@ -137,6 +162,13 @@ public class ConnectionHandler {
       return religions;
     }
 
+    /**
+     * Returns a List of all Countries in the Database
+     * @return List of all Countries
+     * @see Land
+     * @throws SQLException when a Exception with the SQL occurs
+     * @author lmayer
+     */
     public List<Land> selectAllCountries() throws SQLException {
         List<Land> countries = new LinkedList<>();
         Statement s = c.createStatement();
@@ -151,6 +183,14 @@ public class ConnectionHandler {
         return countries;
     }
 
+
+    /**
+     * Selects one country by its Abbreviation
+     * @param kuerzel the Abbreviation of the country
+     * @return null if the abbreviation is invalid, a Country if the abbreviation is valid
+     * @throws SQLException
+     * @author lmayer
+     */
     public Land selectCountryByKuerzel(String kuerzel) throws SQLException {
         PreparedStatement ps = c.prepareStatement("SELECT * FROM DATABASE.LAND WHERE KUERZEL = ?");
         ps.setString(1, kuerzel);
@@ -165,6 +205,13 @@ public class ConnectionHandler {
         return null;
     }
 
+    /**
+     * Selects a Religion by a given id
+     * @param id the id of the religion
+     * @return null if the id is invalid, a Religion if the id is valid
+     * @throws SQLException
+     * @author lmayer
+     */
     public Religion selectReligionByID(int id) throws SQLException {
         PreparedStatement ps = c.prepareStatement("SELECT * FROM RELIGION WHERE ID = ?");
         ps.setInt(1, id);
@@ -179,24 +226,52 @@ public class ConnectionHandler {
     }
 
 
+    /**
+     * Deletes a Patient
+     * @param p the Patient to be deleted
+     * @return the number of lines effected
+     * @throws SQLException
+     * @author lmayer
+     */
     public int deletePatient(Patient p) throws SQLException {
         PreparedStatement ps = c.prepareStatement("DELETE FROM DATABASE.PATIENT WHERE SVNR = ?");
         ps.setInt(1, p.getSvnr());
         return ps.executeUpdate();
     }
 
+    /**
+     * Deletes a Country
+     * @param l the Country to be deleted
+     * @return the number of lines effected
+     * @throws SQLException
+     * @author lmayer
+     */
     public int deleteCountry(Land l) throws SQLException {
         PreparedStatement ps = c.prepareStatement("DELETE FROM DATABASE.LAND WHERE KUERZEL = ?");
         ps.setString(1, l.getKuerzel());
         return ps.executeUpdate();
     }
 
+    /**
+     * Deletes a Religion
+     * @param r the Religion to be deleted
+     * @return the number of lines effected
+     * @throws SQLException
+     * @author lmayer
+     */
     public int deleteReligion(Religion r) throws SQLException {
         PreparedStatement ps = c.prepareStatement("DELETE FROM DATABASE.RELIGION WHERE ID = ?");
         ps.setInt(1, r.getId());
         return ps.executeUpdate();
     }
 
+    /**
+     * Inserts a Country into the Database
+     * @param l The country to be inserted
+     * @return the number of lines effected
+     * @throws SQLException
+     * @author lmayer
+     */
     public int insertCountry(Land l) throws SQLException {
         if(selectCountryByKuerzel(l.getKuerzel()) != null) return -1;
         PreparedStatement ps = c.prepareStatement("INSERT INTO DATABASE.LAND VALUES(?, ?, ?)");
@@ -206,6 +281,13 @@ public class ConnectionHandler {
         return ps.executeUpdate();
     }
 
+    /**
+     * Inserts a Religion into the Database
+     * @param r the Religion to be inserted
+     * @return the number of lines effected
+     * @throws SQLException
+     * @author lmayer
+     */
     public int insertReligion(Religion r) throws SQLException {
         if(selectReligionByID(r.getId()) != null) return -1;
         PreparedStatement ps = c.prepareStatement("INSERT INTO DATABASE.RELIGION VALUES (?, ?)");

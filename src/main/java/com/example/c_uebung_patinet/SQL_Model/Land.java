@@ -1,5 +1,9 @@
 package com.example.c_uebung_patinet.SQL_Model;
 
+/**
+ * Class that models the Land Entry in the Database
+ * @author lmayer
+ */
 public class Land {
     public Land(String kuerzel, String name, String vorwahl) {
         this.kuerzel = kuerzel;

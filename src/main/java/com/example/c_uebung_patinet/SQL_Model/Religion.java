@@ -1,5 +1,9 @@
 package com.example.c_uebung_patinet.SQL_Model;
 
+/**
+ * Class which models the Religion Table in the Database
+ * @author lmayer
+ */
 public class Religion {
     private int id;
     private String name;

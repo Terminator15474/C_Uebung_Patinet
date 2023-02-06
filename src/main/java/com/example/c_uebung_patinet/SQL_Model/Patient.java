@@ -2,6 +2,10 @@ package com.example.c_uebung_patinet.SQL_Model;
 
 import java.util.Date;
 
+/**
+ * Class which models the Patient table in the Database
+ * @author lmayer
+ */
 public class Patient {
     private int svnr;
     private String vorname, nachname, geburtsname, title, namenszuatz;
