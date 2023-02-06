@@ -12,6 +12,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -80,6 +82,11 @@ public class StammdatenControler implements Initializable {
     private Button btn_exit;
 
     @FXML
+    /**
+     * This method is called when the user clicks the "Fertig" button.
+     * It checks if all the required fields are filled and if so, it creates a new patient and saves it to the database.
+        * @param actionEvent The event that triggered this method.
+     */
     public void end(ActionEvent actionEvent) {
         if(tf_svnr.getText() == null || tf_svnr.getText().equals("")){
             return;
@@ -190,6 +197,11 @@ public class StammdatenControler implements Initializable {
     }
 
     @Override
+    /**
+     * This method is called when the window is loaded.
+     * It initializes the comboboxes and the textfields.
+     * @param url The url of the fxml file.
+     */
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             connectionHandler = new ConnectionHandler();
@@ -240,6 +252,11 @@ public class StammdatenControler implements Initializable {
     }
 
     @Deprecated
+    /**
+     * This method is called when the add country button is clicked.
+     * It opens a new window to add a country.
+     * @param actionEvent The event that triggered this method.
+     */
     public void addCountry(ActionEvent actionEvent) {
         Stage root = new Stage();
         root.setTitle("Add a country");
@@ -271,10 +288,15 @@ public class StammdatenControler implements Initializable {
             }
         };
 
+        r.setHgap(10);
+        r.setVgap(10);
+        r.setPadding(new Insets(10, 10, 10, 10));
+        r.setAlignment(Pos.CENTER);
+
         b.setOnAction(click);
         r.getChildren().addAll(id, nd, xd, b);
         r.autosize();
-        Scene scene = new Scene(r);
+        Scene scene = new Scene(r, 650, 50);
         root.setScene(scene);
         root.setOnHidden(windowEvent -> {
             root.close();
@@ -284,6 +306,11 @@ public class StammdatenControler implements Initializable {
     }
 
     @Deprecated
+    /**
+     * This method is called when the add religion button is clicked.
+     * It opens a new window to add a religion.
+     * @param actionEvent The event that triggered this method.
+     */
     public void addReligion(ActionEvent actionEvent) {
         Stage root = new Stage();
         root.setTitle("Add a country");
@@ -313,10 +340,16 @@ public class StammdatenControler implements Initializable {
             }
         };
 
+
+        r.setHgap(10);
+        r.setVgap(10);
+        r.setPadding(new Insets(10, 10, 10, 10));
+        r.setAlignment(Pos.CENTER);
+
         b.setOnAction(click);
         r.getChildren().addAll(id, nd, b);
         r.autosize();
-        Scene scene = new Scene(r);
+        Scene scene = new Scene(r, 500, 50);
         root.setScene(scene);
         root.setOnHidden(windowEvent -> {
             root.close();
