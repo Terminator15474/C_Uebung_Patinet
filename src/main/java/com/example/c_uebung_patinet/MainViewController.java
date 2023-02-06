@@ -39,6 +39,10 @@ public class MainViewController implements Initializable {
     private Button btn_add;
 
     @FXML
+    /**
+     * Opens the Stammdaten.fxml to enter a new Patient
+     * @param event The event that triggered this method
+     */
     void addPatient(ActionEvent event) throws IOException {
         selected_Patient = null;
         FXMLLoader fxmlLoader = new FXMLLoader(MainViewController.class.getResource("Stammdaten.fxml"));
@@ -53,6 +57,10 @@ public class MainViewController implements Initializable {
     }
 
     @FXML
+    /**
+     * Opens the Stammdaten.fxml to change the selected Patient
+     * @param event The event that triggered this method
+     */
     void changePatient(ActionEvent event) throws Exception {
         if(selected_Patient == null) {
             label_error.setText("An critical error occured! Please seek help and pray!");
@@ -70,6 +78,10 @@ public class MainViewController implements Initializable {
     }
 
     @FXML
+    /**
+     * Deletes the selected Patient from the database and the ListView
+     * @param event The event that triggered this method
+     */
     void deletePatient(ActionEvent event) throws Exception {
         int index = lv_patienten.getSelectionModel().getSelectedIndex();
         Patient temp = lv_patienten.getItems().get(index);
@@ -81,6 +93,11 @@ public class MainViewController implements Initializable {
     public Thread updateThread;
 
     @Override
+    /**
+     * Initializes the MainViewController
+     * @param url The url of the fxml file
+     * @param resourceBundle The resourceBundle of the fxml file
+     */
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             mostRecentController = this;
@@ -107,6 +124,10 @@ public class MainViewController implements Initializable {
         }
     }
 
+    /**
+     * Updates the ListView
+     * @param actionEvent The event that triggered this method
+     */
     public void updateListView(ActionEvent actionEvent) {
         uiThread.update();
     }
