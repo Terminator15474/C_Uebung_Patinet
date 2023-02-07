@@ -7,14 +7,12 @@ import com.example.c_uebung_patinet.SQL_Tools.ConnectionHandler;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -32,18 +30,20 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
-public class StammdatenControler implements Initializable {
+/**
+ * Class which handels the UI of the "Stammdaten".
+ *
+ */
+public class StammdatenController implements Initializable {
 
     @FXML
     private AnchorPane root;
     @FXML
     private Label lable_error;
 
-    public StammdatenControler() {}
+    public StammdatenController() {}
     public ConnectionHandler connectionHandler = null;
 
     @FXML
@@ -93,6 +93,7 @@ public class StammdatenControler implements Initializable {
      * This method is called when the user clicks the "Fertig" button.
      * It checks if all the required fields are filled and if so, it creates a new patient and saves it to the database.
         * @param actionEvent The event that triggered this method.
+     * @autor aholzinger
      */
     public void end(ActionEvent actionEvent) {
         if(tf_svnr.getText() == null || tf_svnr.getText().equals("")){
@@ -394,6 +395,10 @@ public class StammdatenControler implements Initializable {
         error.setTextFill(Color.RED);
 
         EventHandler<ActionEvent> click = new EventHandler<ActionEvent>() {
+            /**
+             * Class which handels the UI for "Stammdaten".
+             * @param actionEvent
+             */
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
@@ -475,6 +480,10 @@ public class StammdatenControler implements Initializable {
         error.setTextFill(Color.RED);
 
         EventHandler<ActionEvent> click = new EventHandler<ActionEvent>() {
+            /**
+             * Class wich handels the UI
+             * @param actionEvent
+             */
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {

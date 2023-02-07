@@ -9,6 +9,10 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Class only for testing
+ * @author lukasm
+ */
 public class TestClass {
     public static void main(String[] args) throws SQLException {
         ConnectionHandler ch = new ConnectionHandler();
