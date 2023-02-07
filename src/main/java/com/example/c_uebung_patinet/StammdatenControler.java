@@ -18,8 +18,10 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -208,7 +210,70 @@ public class StammdatenControler implements Initializable {
             cb_country.getItems().setAll(connectionHandler.selectAllCountries());
             cb_gender.getItems().add("männlich");
             cb_gender.getItems().add("weiblich");
-            cb_gender.getItems().add("anders");
+            cb_gender.getItems().add("divers");
+
+            cb_konfession.setCellFactory(param -> {
+                return new ListCell<Religion>() {
+                    @Override
+                    protected void updateItem(Religion religion, boolean b) {
+                        super.updateItem(religion, b);
+                        if(religion == null) {
+                            setText(null);
+                            setTooltip(null);
+                            return;
+                        }
+                        EventHandler<ActionEvent> click = new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent actionEvent) {
+                                try {
+                                    connectionHandler.deleteReligion(religion);
+                                    cb_konfession.getItems().setAll(connectionHandler.selectAllReligions());
+                                    System.out.println("Deletet" + religion.toString());
+                                } catch (SQLException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        };
+                        setText(religion.toString());
+                        Button button = new Button("Delete");
+                        button.setOnAction(click);
+                        Tooltip t = new Tooltip();
+                        t.setHideDelay(Duration.seconds(1));
+                        t.setGraphic(button);
+                        setTooltip(t);
+                    }
+                };
+            });
+
+            cb_country.setCellFactory(param -> new ListCell<Land>() {
+                @Override
+                protected void updateItem(Land land, boolean b) {
+                    super.updateItem(land, b);
+                    if(land == null) {
+                        setText(null);
+                        setTooltip(null);
+                        return;
+                    }
+                    setText(land.toString());
+                    Button button = new Button("Delete");
+                    EventHandler<ActionEvent> click = new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent actionEvent) {
+                            try {
+                                connectionHandler.deleteCountry(land);
+                                cb_country.getItems().setAll(connectionHandler.selectAllCountries());
+                            } catch (SQLException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    };
+                    Tooltip t = new Tooltip();
+                    t.setHideDelay(Duration.seconds(1));
+                    button.setOnAction(click);
+                    t.setGraphic(button);
+                    setTooltip(t);
+                }
+            });
             cb_konfession.getItems().setAll(connectionHandler.selectAllReligions());
             cb_country.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Land>() {
                 @Override
@@ -246,6 +311,7 @@ public class StammdatenControler implements Initializable {
                 tf_tel.setText(MainViewController.selected_Patient.getTel());
                 cb_konfession.getSelectionModel().select(cb_konfession.getItems().indexOf(MainViewController.selected_Patient.getReligionszugehörigkeit()));
             }
+            Platform.runLater(() -> tf_svnr.requestFocus());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -269,13 +335,39 @@ public class StammdatenControler implements Initializable {
         xd.setPromptText("Enter Vorwahl");
         Button b = new Button("Save");
         b.setPrefWidth(150);
+        Label error = new Label("");
+        error.setLabelFor(r);
+        error.setTextFill(Color.RED);
 
         EventHandler<ActionEvent> click = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
-                    if(id.getText().isEmpty() || nd.getText().isEmpty() || xd.getText().isEmpty()) return;
-                    connectionHandler.insertCountry(new Land(id.getText(), nd.getText(), xd.getText()));
+                    if(id.getText().length() > 3) {
+                        error.setText("ID max length 3!");
+                        return;
+                    }
+                    if(nd.getText().length() > 30) {
+                        error.setText("Name max length 30!");
+                        return;
+                    }
+                    if(xd.getText().length() > 3) {
+                        error.setText("Vorwahl max length 3!");
+                        return;
+                    }
+                    if(xd.getText().matches("[a-zA-Z]+")) {
+                        error.setText("Only numbers in the vorwahl!");
+                        return;
+                    }
+                    if(id.getText().isEmpty() || nd.getText().isEmpty() || xd.getText().isEmpty()) {
+                        error.setText("No empty fields!");
+                        return;
+                    }
+                    int res = connectionHandler.insertCountry(new Land(id.getText(), nd.getText(), xd.getText()));
+                    if(res == -1) {
+                        error.setText("Country ID already exists!");
+                        return;
+                    }
                     nd.getScene().getWindow().hide();
                     Platform.runLater(() -> {
                         try {
@@ -296,9 +388,9 @@ public class StammdatenControler implements Initializable {
         r.setAlignment(Pos.CENTER);
 
         b.setOnAction(click);
-        r.getChildren().addAll(id, nd, xd, b);
+        r.getChildren().addAll(id, nd, xd, b, error);
         r.autosize();
-        Scene scene = new Scene(r, 525, 90);
+        Scene scene = new Scene(r, 217, 255);
         root.setScene(scene);
         root.setOnHidden(windowEvent -> {
             root.close();
@@ -315,7 +407,7 @@ public class StammdatenControler implements Initializable {
      */
     public void addReligion(ActionEvent actionEvent) {
         Stage root = new Stage();
-        root.setTitle("Add a country");
+        root.setTitle("Add a religion");
         TilePane r = new TilePane();
         TextField id = new TextField();
         id.setPromptText("Enter Religion ID");
@@ -323,13 +415,28 @@ public class StammdatenControler implements Initializable {
         nd.setPromptText("Enter Religion Name");
         Button b = new Button("Save");
         b.setPrefWidth(150);
+        Label error = new Label("");
+        error.setLabelFor(r);
+        error.setTextFill(Color.RED);
 
         EventHandler<ActionEvent> click = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
-                    if(id.getText().isEmpty() || nd.getText().isEmpty()) return;
-                    connectionHandler.insertReligion(new Religion(Integer.parseInt(id.getText()), nd.getText()));
+                    if(id.getText().isEmpty() || nd.getText().isEmpty()) {
+                        error.setText("No empty fields");
+                        return;
+                    }
+                    if(nd.getText().length() > 30) {
+                        error.setText("Name no longer than 30 chars!");
+                        return;
+                    }
+                    int res = connectionHandler.insertReligion(new Religion(Integer.parseInt(id.getText()), nd.getText()));
+                    System.out.println(res);
+                    if(res < 0) {
+                        error.setText("ID already exists!");
+                        return;
+                    }
                     nd.getScene().getWindow().hide();
                     Platform.runLater(() -> {
                         try {
@@ -340,6 +447,8 @@ public class StammdatenControler implements Initializable {
                     });
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
+                } catch (NumberFormatException e) {
+                    error.setText("Enter a valid number");
                 }
             }
         };
@@ -351,9 +460,9 @@ public class StammdatenControler implements Initializable {
         r.setAlignment(Pos.CENTER);
 
         b.setOnAction(click);
-        r.getChildren().addAll(id, nd, b);
+        r.getChildren().addAll(id, nd, b, error);
         r.autosize();
-        Scene scene = new Scene(r, 380, 90);
+        Scene scene = new Scene(r, 203, 200);
         root.setScene(scene);
         root.setOnHidden(windowEvent -> {
             root.close();
