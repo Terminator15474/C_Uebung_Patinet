@@ -243,6 +243,7 @@ public class StammdatenController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        MainViewController.mostRecentController.uiThread.update();
         root.getScene().getWindow().hide();
 
     }

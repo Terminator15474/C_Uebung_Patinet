@@ -29,6 +29,7 @@ public class MainViewController implements Initializable {
 
     public static MainViewController mostRecentController;
 
+
     public static Patient selected_Patient = null;
     @FXML
     public ListView<Patient> lv_patienten;
@@ -77,6 +78,7 @@ public class MainViewController implements Initializable {
         stage.show();
         stage.getScene().getWindow().setOnHidden(windowEvent -> {
             stage.close();
+
         });
     }
 
