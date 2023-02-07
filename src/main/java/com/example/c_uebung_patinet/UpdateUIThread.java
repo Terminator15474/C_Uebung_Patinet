@@ -14,12 +14,21 @@ public class UpdateUIThread extends Task<Void> {
     MainViewController mwc;
     ConnectionHandler ch;
 
+    /**
+     * Method to Update the UI Thread
+     * @param mwc hands over the controller
+     * @throws SQLException
+     */
     public UpdateUIThread(MainViewController mwc) throws SQLException {
         this.mwc = mwc;
         ch = new ConnectionHandler();
     }
 
-
+    /**
+     * Method to handle the Thread
+     * @return
+     * @autor lmayer
+     */
     @Override
     protected Void call() {
         while (true) {
