@@ -481,7 +481,7 @@ public class StammdatenController implements Initializable {
 
         EventHandler<ActionEvent> click = new EventHandler<ActionEvent>() {
             /**
-             * Class wich handels the UI
+             * Class which handles the UI
              * @param actionEvent
              */
             @Override
@@ -536,10 +536,16 @@ public class StammdatenController implements Initializable {
 
     }
 
+    /**
+     * Method sorts the countries
+     */
     private void sortCountries() {
         cb_country.getItems().sort(Comparator.comparing(Land::getKuerzel));
     }
 
+    /**
+     * Method sorts the religions
+     */
     private void sortReligions() {
         cb_konfession.getItems().sort(Comparator.comparing(Religion::getId));
     }

@@ -15,6 +15,12 @@ import java.sql.SQLException;
  */
 public class HelloApplication extends Application {
     static Stage global_stage = null;
+
+    /**
+     * Method starts the main window
+     * @param stage
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
         global_stage = stage;
@@ -35,6 +41,11 @@ public class HelloApplication extends Application {
         });
     }
 
+    /**
+     * starts the main
+     * @param args
+     * @autor jdommert
+     */
     public static void main(String[] args) {
         launch();
     }
