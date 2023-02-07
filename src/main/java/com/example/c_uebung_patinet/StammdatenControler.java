@@ -251,7 +251,7 @@ public class StammdatenControler implements Initializable {
         }
     }
 
-    @Deprecated
+    @FXML
     /**
      * This method is called when the add country button is clicked.
      * It opens a new window to add a country.
@@ -267,12 +267,14 @@ public class StammdatenControler implements Initializable {
         nd.setPromptText("Enter Country Name");
         TextField xd = new TextField();
         xd.setPromptText("Enter Vorwahl");
-        Button b = new Button("save");
+        Button b = new Button("Save");
+        b.setPrefWidth(150);
 
         EventHandler<ActionEvent> click = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
+                    if(id.getText().isEmpty() || nd.getText().isEmpty() || xd.getText().isEmpty()) return;
                     connectionHandler.insertCountry(new Land(id.getText(), nd.getText(), xd.getText()));
                     nd.getScene().getWindow().hide();
                     Platform.runLater(() -> {
@@ -296,7 +298,7 @@ public class StammdatenControler implements Initializable {
         b.setOnAction(click);
         r.getChildren().addAll(id, nd, xd, b);
         r.autosize();
-        Scene scene = new Scene(r, 650, 50);
+        Scene scene = new Scene(r, 525, 90);
         root.setScene(scene);
         root.setOnHidden(windowEvent -> {
             root.close();
@@ -305,7 +307,7 @@ public class StammdatenControler implements Initializable {
 
     }
 
-    @Deprecated
+    @FXML
     /**
      * This method is called when the add religion button is clicked.
      * It opens a new window to add a religion.
@@ -319,12 +321,14 @@ public class StammdatenControler implements Initializable {
         id.setPromptText("Enter Religion ID");
         TextField nd = new TextField();
         nd.setPromptText("Enter Religion Name");
-        Button b = new Button("save");
+        Button b = new Button("Save");
+        b.setPrefWidth(150);
 
         EventHandler<ActionEvent> click = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
+                    if(id.getText().isEmpty() || nd.getText().isEmpty()) return;
                     connectionHandler.insertReligion(new Religion(Integer.parseInt(id.getText()), nd.getText()));
                     nd.getScene().getWindow().hide();
                     Platform.runLater(() -> {
@@ -349,7 +353,7 @@ public class StammdatenControler implements Initializable {
         b.setOnAction(click);
         r.getChildren().addAll(id, nd, b);
         r.autosize();
-        Scene scene = new Scene(r, 500, 50);
+        Scene scene = new Scene(r, 380, 90);
         root.setScene(scene);
         root.setOnHidden(windowEvent -> {
             root.close();
