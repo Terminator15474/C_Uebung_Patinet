@@ -224,7 +224,7 @@ public class StammdatenControler implements Initializable {
             cb_country.getItems().setAll(connectionHandler.selectAllCountries());
             cb_gender.getItems().add("männlich");
             cb_gender.getItems().add("weiblich");
-            cb_gender.getItems().add("anders");
+            cb_gender.getItems().add("divers");
             cb_konfession.getItems().setAll(connectionHandler.selectAllReligions());
             cb_country.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Land>() {
                 @Override
