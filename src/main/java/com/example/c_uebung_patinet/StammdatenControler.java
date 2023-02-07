@@ -177,12 +177,36 @@ public class StammdatenControler implements Initializable {
             return;
         }
 
-        // System.out.println(tf_ln.getText());
+        if(tf_postalCode.getText().length() > 6) {
+            lable_error.setText("PLZ darf Maximal 6 Zeichen lang sein");
+            return;
+        }
+
+        if(tf_hn.getText().length() > 5) {
+            lable_error.setText("Hausnummer darf Maximal 5 Zeichen lang sein");
+            return;
+        }
+
+        if(tf_countryID.getText().length() > 3) {
+            lable_error.setText("Landeskürzel darf Maximal 3 Zeichen lang sein");
+            return;
+        }
+
+        if(tf_vorw.getText().length() > 3) {
+            lable_error.setText("Vorwahl darf Maximal 3 Zeichen lang sein");
+            return;
+        }
+
+
+        if(tf_name_add.getText().length() > 10) {
+            lable_error.setText("Namenszusatz darf Maximal 10 Zeichen lang sein");
+            return;
+        }
+
 
         Patient p = new Patient();
         p.setSvnr(Integer.parseInt(tf_svnr.getText()));
         p.setVorname(tf_fn.getText());
-        // System.out.println(tf_ln.getText());
         p.setNachname(tf_ln.getText());
         p.setGeburtsname(tf_birthname.getText());
         p.setTitle(tf_title.getText());
@@ -251,10 +275,7 @@ public class StammdatenControler implements Initializable {
                 tf_marrialStatus.setText(MainViewController.selected_Patient.getFamilienstand());
                 tf_countryID.setText(MainViewController.selected_Patient.getStaatsangehörigkeit().getKuerzel());
                 cb_country.getSelectionModel().select(cb_country.getItems().indexOf(MainViewController.selected_Patient.getStaatsangehörigkeit()));
-                // System.out.println(cb_country.getItems().indexOf(MainViewController.selected_Patient.getStaatsangehörigkeit()));
-                // System.out.println(cb_country.getItems().stream().filter(l -> l.getKuerzel().equals(MainViewController.selected_Patient.getStaatsangehörigkeit().getKuerzel())).collect(Collectors.toList()));
                 tf_postalCode.setText(MainViewController.selected_Patient.getPostleitzahl());
-                System.out.println(MainViewController.selected_Patient.getPostleitzahl());
                 tf_place.setText(MainViewController.selected_Patient.getOrt());
                 tf_street.setText(MainViewController.selected_Patient.getStrasse());
                 tf_hn.setText(MainViewController.selected_Patient.getHausnr());
