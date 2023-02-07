@@ -248,7 +248,7 @@ public class StammdatenControler implements Initializable {
             cb_country.getItems().setAll(connectionHandler.selectAllCountries());
             cb_gender.getItems().add("männlich");
             cb_gender.getItems().add("weiblich");
-            cb_gender.getItems().add("anders");
+            cb_gender.getItems().add("divers");
             cb_konfession.getItems().setAll(connectionHandler.selectAllReligions());
             cb_country.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Land>() {
                 @Override
@@ -352,7 +352,7 @@ public class StammdatenControler implements Initializable {
     @Deprecated
     public void addReligion(ActionEvent actionEvent) {
         Stage root = new Stage();
-        root.setTitle("Add a country");
+        root.setTitle("Add a Religion");
         TilePane r = new TilePane();
         TextField id = new TextField();
         id.setPromptText("Enter Religion ID");
