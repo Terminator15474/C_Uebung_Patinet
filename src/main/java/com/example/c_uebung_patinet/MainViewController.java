@@ -113,6 +113,12 @@ public class MainViewController implements Initializable {
             btn_change.setDisable(true);
             btn_delete.setDisable(true);
             lv_patienten.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Patient>() {
+                /**
+                 * handles the list
+                 * @param observableValue
+                 * @param patient
+                 * @param t1
+                 */
                 @Override
                 public void changed(ObservableValue<? extends Patient> observableValue, Patient patient, Patient t1) {
                     btn_change.setDisable(false);
