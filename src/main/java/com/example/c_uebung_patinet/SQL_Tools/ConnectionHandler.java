@@ -290,10 +290,13 @@ public class ConnectionHandler {
      */
     public int insertReligion(Religion r) throws SQLException {
         if(selectReligionByID(r.getId()) != null) return -1;
-        PreparedStatement ps = c.prepareStatement("INSERT INTO DATABASE.RELIGION VALUES (?, ?)");
-        ps.setInt(1, r.getId());
-        ps.setString(2, r.getName());
-        return ps.executeUpdate();
+        ResultSet rs = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE).executeQuery("SELECT * FROM DATABASE.RELIGION");
+        rs.last();
+        rs.moveToInsertRow();
+        rs.updateInt(1, r.getId());
+        rs.updateString(2, r.getName());
+        rs.insertRow();
+        return 1;
     }
 
 }

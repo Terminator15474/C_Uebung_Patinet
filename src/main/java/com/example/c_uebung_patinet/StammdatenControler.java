@@ -26,9 +26,11 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -95,6 +97,10 @@ public class StammdatenControler implements Initializable {
     public void end(ActionEvent actionEvent) {
         if(tf_svnr.getText() == null || tf_svnr.getText().equals("")){
             lable_error.setText("Patienten ID ist ein Pflichtfeld");
+            return;
+        }
+        if(tf_svnr.getText().matches("[a-zA-Z]+")) {
+            lable_error.setText("Patienten ID darf nur Nummern enthalten");
             return;
         }
 
@@ -270,7 +276,9 @@ public class StammdatenControler implements Initializable {
                                 try {
                                     connectionHandler.deleteReligion(religion);
                                     cb_konfession.getItems().setAll(connectionHandler.selectAllReligions());
-                                    System.out.println("Deletet" + religion.toString());
+                                    // System.out.println("Deletet" + religion.toString());
+                                } catch (SQLIntegrityConstraintViolationException e){
+                                    lable_error.setText("Religion " + religion.getName() + " wird verwendet!");
                                 } catch (SQLException e) {
                                     throw new RuntimeException(e);
                                 }
@@ -304,6 +312,8 @@ public class StammdatenControler implements Initializable {
                             try {
                                 connectionHandler.deleteCountry(land);
                                 cb_country.getItems().setAll(connectionHandler.selectAllCountries());
+                            } catch (SQLIntegrityConstraintViolationException e) {
+                                lable_error.setText("Land " + land.getKuerzel() + " " + land.getName() + " wird verwendet!");
                             } catch (SQLException e) {
                                 throw new RuntimeException(e);
                             }
@@ -316,7 +326,6 @@ public class StammdatenControler implements Initializable {
                     setTooltip(t);
                 }
             });
-            cb_gender.getItems().add("divers");
             cb_konfession.getItems().setAll(connectionHandler.selectAllReligions());
             cb_country.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Land>() {
                 @Override
@@ -346,7 +355,7 @@ public class StammdatenControler implements Initializable {
                 // System.out.println(cb_country.getItems().indexOf(MainViewController.selected_Patient.getStaatsangehörigkeit()));
                 // System.out.println(cb_country.getItems().stream().filter(l -> l.getKuerzel().equals(MainViewController.selected_Patient.getStaatsangehörigkeit().getKuerzel())).collect(Collectors.toList()));
                 tf_postalCode.setText(MainViewController.selected_Patient.getPostleitzahl());
-                System.out.println(MainViewController.selected_Patient.getPostleitzahl());
+                // System.out.println(MainViewController.selected_Patient.getPostleitzahl());
                 tf_place.setText(MainViewController.selected_Patient.getOrt());
                 tf_street.setText(MainViewController.selected_Patient.getStrasse());
                 tf_hn.setText(MainViewController.selected_Patient.getHausnr());
@@ -358,6 +367,8 @@ public class StammdatenControler implements Initializable {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        sortCountries();
+        sortReligions();
     }
 
     @FXML
@@ -437,6 +448,7 @@ public class StammdatenControler implements Initializable {
         root.setScene(scene);
         root.setOnHidden(windowEvent -> {
             root.close();
+            sortCountries();
         });
         root.show();
 
@@ -475,7 +487,7 @@ public class StammdatenControler implements Initializable {
                         return;
                     }
                     int res = connectionHandler.insertReligion(new Religion(Integer.parseInt(id.getText()), nd.getText()));
-                    System.out.println(res);
+                    // System.out.println(res);
                     if(res < 0) {
                         error.setText("ID already exists!");
                         return;
@@ -509,8 +521,17 @@ public class StammdatenControler implements Initializable {
         root.setScene(scene);
         root.setOnHidden(windowEvent -> {
             root.close();
+            sortReligions();
         });
         root.show();
 
+    }
+
+    private void sortCountries() {
+        cb_country.getItems().sort(Comparator.comparing(Land::getKuerzel));
+    }
+
+    private void sortReligions() {
+        cb_konfession.getItems().sort(Comparator.comparing(Religion::getId));
     }
 }
