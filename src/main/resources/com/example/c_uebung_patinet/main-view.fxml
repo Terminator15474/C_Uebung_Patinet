@@ -18,6 +18,6 @@
       <Button fx:id="btn_delete" layoutX="353.0" layoutY="286.0" mnemonicParsing="false" onAction="#deletePatient" text="Löschen" />
       <Button fx:id="btn_add" layoutX="353.0" layoutY="320.0" mnemonicParsing="false" onAction="#addPatient" text="Hinzufügen" />
       <Label fx:id="label_error" layoutX="20.0" layoutY="359.0" prefHeight="18.0" prefWidth="319.0" />
-      <Button layoutX="353.0" layoutY="356.0" mnemonicParsing="false" onAction="#updateListView" prefHeight="25.0" prefWidth="78.0" text="Update" />
+      <Button layoutX="353.0" layoutY="356.0" mnemonicParsing="false" onAction="#updateListView" prefHeight="25.0" prefWidth="78.0" text="Refresh" />
    </children>
 </AnchorPane>

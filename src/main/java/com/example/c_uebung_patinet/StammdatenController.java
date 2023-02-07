@@ -360,6 +360,7 @@ public class StammdatenController implements Initializable {
             if(MainViewController.selected_Patient != null) {
                 // change
                 tf_svnr.setText("" + MainViewController.selected_Patient.getSvnr());
+                tf_svnr.setDisable(true);
                 tf_fn.setText(MainViewController.selected_Patient.getVorname());
                 tf_ln.setText(MainViewController.selected_Patient.getNachname());
                 tf_birthname.setText(MainViewController.selected_Patient.getGeburtsname());
