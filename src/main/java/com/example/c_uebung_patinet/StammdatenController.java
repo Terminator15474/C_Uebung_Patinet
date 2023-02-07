@@ -272,6 +272,10 @@ public class StammdatenController implements Initializable {
                             return;
                         }
                         EventHandler<ActionEvent> click = new EventHandler<ActionEvent>() {
+                            /**
+                             * handles the combobox from "religion"
+                             * @param actionEvent
+                             */
                             @Override
                             public void handle(ActionEvent actionEvent) {
                                 try {
@@ -297,6 +301,11 @@ public class StammdatenController implements Initializable {
             });
 
             cb_country.setCellFactory(param -> new ListCell<Land>() {
+                /**
+                 * Method updates "Land" item
+                 * @param land
+                 * @param b
+                 */
                 @Override
                 protected void updateItem(Land land, boolean b) {
                     super.updateItem(land, b);
@@ -308,6 +317,10 @@ public class StammdatenController implements Initializable {
                     setText(land.toString());
                     Button button = new Button("Delete");
                     EventHandler<ActionEvent> click = new EventHandler<ActionEvent>() {
+                        /**
+                         * handles the combobox from "land"
+                         * @param actionEvent
+                         */
                         @Override
                         public void handle(ActionEvent actionEvent) {
                             try {
@@ -329,6 +342,12 @@ public class StammdatenController implements Initializable {
             });
             cb_konfession.getItems().setAll(connectionHandler.selectAllReligions());
             cb_country.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Land>() {
+                /**
+                 * handles the list
+                 * @param observableValue
+                 * @param land
+                 * @param t1
+                 */
                 @Override
                 public void changed(ObservableValue<? extends Land> observableValue, Land land, Land t1) {
                     if(t1 == null) return;
