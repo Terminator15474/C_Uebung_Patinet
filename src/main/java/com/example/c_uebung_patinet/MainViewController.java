@@ -49,7 +49,7 @@ public class MainViewController implements Initializable {
         Parent root = fxmlLoader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.setTitle("Add neu Patient");
+        stage.setTitle("Add new Patient");
         stage.show();
         stage.getScene().getWindow().setOnHidden(windowEvent -> {
             stage.close();

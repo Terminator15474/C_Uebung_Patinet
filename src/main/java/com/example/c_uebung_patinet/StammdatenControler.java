@@ -17,6 +17,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -36,7 +37,9 @@ import java.util.stream.Collectors;
 public class StammdatenControler implements Initializable {
 
     @FXML
-    private Node root;
+    private AnchorPane root;
+    @FXML
+    private Label lable_error;
 
     public StammdatenControler() {}
     public ConnectionHandler connectionHandler = null;
@@ -91,14 +94,17 @@ public class StammdatenControler implements Initializable {
      */
     public void end(ActionEvent actionEvent) {
         if(tf_svnr.getText() == null || tf_svnr.getText().equals("")){
+            lable_error.setText("Patienten ID ist ein Pflichtfeld");
             return;
         }
 
         if(tf_ln.getText() == null || tf_ln.getText().equals("")){
+            lable_error.setText("Name ist ein Pflichtfeld");
             return;
         }
 
         if(tf_fn.getText() == null || tf_fn.getText().equals("")){
+            lable_error.setText("Vorname ist ein Pflichtfeld");
             return;
         }
 
@@ -109,19 +115,23 @@ public class StammdatenControler implements Initializable {
         tf_name_add.getText();
 
         if(datePicker_dateOfBirth.getValue() == null){
+            lable_error.setText("Geburtsdatum ist ein Pflichtfeld");
             return;
         }
 
         if(tf_placeOfBirth.getText() == null || tf_placeOfBirth.getText().equals("")){
+            lable_error.setText("Geburtsort ist ein Pflichtfeld");
             return;
         }
 
         int genderindex = cb_gender.getSelectionModel().getSelectedIndex();
         if (cb_gender.getItems().get(genderindex) == null){
+            lable_error.setText("Geschlecht ist ein Pflichtfeld");
             return;
         }
 
         if(tf_marrialStatus.getText() == null || tf_marrialStatus.getText().equals("")){
+            lable_error.setText("Familienstand ist ein Pflichtfeld");
             return;
         }
 
@@ -131,21 +141,26 @@ public class StammdatenControler implements Initializable {
 
         int countryindex = cb_country.getSelectionModel().getSelectedIndex();
         if(cb_country.getItems().get(countryindex) == null){
+            lable_error.setText("Land muss ausgewählt werden");
             return;
         }
 
         if (tf_postalCode.getText() == null || tf_postalCode.getText().equals("")){
+            lable_error.setText("PLZ ist ein Pflichtfeld");
             return;
         }
 
         if (tf_place.getText() == null || tf_place.getText().equals("")){
+            lable_error.setText("Ort ist ein Pflichtfeld");
             return;
         }
 
         if (tf_street.getText() == null || tf_street.getText().equals("")){
+            lable_error.setText("Straße ist ein Pflichtfeld");
             return;
         }
         if (tf_hn.getText() == null || tf_hn.getText().equals("")){
+            lable_error.setText("Hausnummer ist ein Pflichtfeld");
             return;
         }
 
@@ -154,15 +169,42 @@ public class StammdatenControler implements Initializable {
         }
 
         if (tf_tel.getText() == null || tf_tel.getText().equals("")){
+            lable_error.setText("Telefonnummer ist ein Pflichtfeld");
             return;
         }
 
         int konfessionindex = cb_konfession.getSelectionModel().getSelectedIndex();
         if(cb_konfession.getItems().get(konfessionindex) == null){
+            lable_error.setText("Konfession ist ein Pflichtfeld");
             return;
         }
 
-        // System.out.println(tf_ln.getText());
+        if(tf_postalCode.getText().length() > 6) {
+            lable_error.setText("PLZ darf Maximal 6 Zeichen lang sein");
+            return;
+        }
+
+        if(tf_hn.getText().length() > 5) {
+            lable_error.setText("Hausnummer darf Maximal 5 Zeichen lang sein");
+            return;
+        }
+
+        if(tf_countryID.getText().length() > 3) {
+            lable_error.setText("Landeskürzel darf Maximal 3 Zeichen lang sein");
+            return;
+        }
+
+        if(tf_vorw.getText().length() > 3) {
+            lable_error.setText("Vorwahl darf Maximal 3 Zeichen lang sein");
+            return;
+        }
+
+
+        if(tf_name_add.getText().length() > 10) {
+            lable_error.setText("Namenszusatz darf Maximal 10 Zeichen lang sein");
+            return;
+        }
+
 
         Patient p = new Patient();
         p.setSvnr(Integer.parseInt(tf_svnr.getText()));
@@ -274,6 +316,7 @@ public class StammdatenControler implements Initializable {
                     setTooltip(t);
                 }
             });
+            cb_gender.getItems().add("divers");
             cb_konfession.getItems().setAll(connectionHandler.selectAllReligions());
             cb_country.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Land>() {
                 @Override
