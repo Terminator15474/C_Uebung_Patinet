@@ -331,7 +331,7 @@ public class StammdatenControler implements Initializable {
     @Deprecated
     public void addReligion(ActionEvent actionEvent) {
         Stage root = new Stage();
-        root.setTitle("Add a country");
+        root.setTitle("Add a Religion");
         TilePane r = new TilePane();
         TextField id = new TextField();
         id.setPromptText("Enter Religion ID");
