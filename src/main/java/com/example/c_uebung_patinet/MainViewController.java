@@ -21,6 +21,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Class which handles the MainController
+ */
 public class MainViewController implements Initializable {
     ConnectionHandler connectionHandler = null;
 

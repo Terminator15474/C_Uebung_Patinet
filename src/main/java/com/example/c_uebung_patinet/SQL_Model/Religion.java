@@ -8,9 +8,18 @@ public class Religion {
     private int id;
     private String name;
 
+    /**
+     * empty Constructor
+     * @autor lmayer
+     */
     public Religion() {
     }
 
+    /**
+     * Constructor sets the variables
+     * @param id
+     * @param name
+     */
     public Religion(int id, String name) {
         this.id = id;
         this.name = name;

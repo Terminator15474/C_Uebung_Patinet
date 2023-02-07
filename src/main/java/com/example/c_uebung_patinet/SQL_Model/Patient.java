@@ -15,9 +15,35 @@ public class Patient {
     private String postleitzahl, ort, strasse, hausnr, tel;
     private Religion religionszugehörigkeit;
 
+    /**
+     * empty Constructor
+     * @autor lmayer
+     */
     public Patient() {
     }
 
+    /**
+     *
+     * Constructor sets the variables
+     *
+     * @param svnr
+     * @param vorname
+     * @param nachname
+     * @param geburtsname
+     * @param title
+     * @param namenszuatz
+     * @param geburtsdatum
+     * @param geburtsort
+     * @param geschlecht
+     * @param familienstand
+     * @param staatsangehörigkeit
+     * @param postleitzahl
+     * @param ort
+     * @param strasse
+     * @param hausnr
+     * @param tel
+     * @param religionszugehörigkeit
+     */
     public Patient(int svnr, String vorname, String nachname, String geburtsname, String title, String namenszuatz, Date geburtsdatum, String geburtsort, String geschlecht, String familienstand, Land staatsangehörigkeit, String postleitzahl, String ort, String strasse, String hausnr, String tel, Religion religionszugehörigkeit) {
         this.svnr = svnr;
         this.vorname = vorname;
@@ -224,7 +250,7 @@ public class Patient {
 
     /**
      * set the value of religion
-     * @param religion new value of religion
+     * @param postleitzahl new value of religion
      */
     public void setPostleitzahl(String postleitzahl) {
         this.postleitzahl = postleitzahl;

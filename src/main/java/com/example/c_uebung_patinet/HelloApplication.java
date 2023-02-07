@@ -10,6 +10,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Main Thread which builds the Programm
+ */
 public class HelloApplication extends Application {
     static Stage global_stage = null;
     @Override

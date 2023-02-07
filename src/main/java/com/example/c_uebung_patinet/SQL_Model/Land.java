@@ -6,12 +6,23 @@ package com.example.c_uebung_patinet.SQL_Model;
  */
 public class Land {
     private String kuerzel, name, vorwahl;
+
+    /**
+     * Constructor sets the variables
+     * @param kuerzel
+     * @param name
+     * @param vorwahl
+     */
     public Land(String kuerzel, String name, String vorwahl) {
         this.kuerzel = kuerzel;
         this.name = name;
         this.vorwahl = vorwahl;
     }
 
+    /**
+     * empty Constructor
+     * @autor lmayer
+     */
     public Land() {
     }
 
